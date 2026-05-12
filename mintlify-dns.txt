@@ -1,0 +1,16 @@
+Type	Name	Value
+TXT
+_acme-challenge.docs
+
+LKO9U-MpfgMvfiutwEMXD5_wOK3XVO3kMl8anhdMthY
+
+TXT
+_cf-custom-hostname.docs
+
+3ad3f30a-bb13-41d2-a459-2d483626ebc4
+
+CNAME
+docs
+
+cname.mintlify.builders
+
