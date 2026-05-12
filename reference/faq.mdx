@@ -1,0 +1,41 @@
+---
+title: Frequently Asked Questions
+---
+
+<AccordionGroup>
+  <Accordion title="Do I need a static IP on the client site?">
+    No. ProxyLink works with dynamic IPs. The WireGuard tunnel initiates an outbound connection from the client's router to ProxyLink — no inbound ports need to be open. Even if the ISP IP changes, the tunnel reconnects automatically.
+  </Accordion>
+
+  <Accordion title="Do I need to install software on every device?">
+    No — for network devices, cameras, NVRs, PBX systems, switches, and anything else accessible on the LAN. One WireGuard tunnel on the router is all you need. The only exception is Windows PCs, which require a one-time silent deploy script for RDP/VNC access.
+  </Accordion>
+
+  <Accordion title="How is this different from TeamViewer or AnyDesk?">
+    TeamViewer and AnyDesk require software on every device. ProxyLink requires nothing on network devices — cameras, NVRs, PBX systems are unreachable by those tools without an agent. ProxyLink also routes traffic directly through WireGuard — it never passes through third-party servers. Both TeamViewer and AnyDesk were breached in 2024.
+  </Accordion>
+
+  <Accordion title="Where is ProxyLink hosted?">
+    Hetzner Germany (Frankfurt). EU infrastructure, EU data protection law applies. Traffic does not route through third-party CDNs or relay servers.
+  </Accordion>
+
+  <Accordion title="What protocol does ProxyLink use?">
+    WireGuard for the VPN tunnel. WireGuard is open-source, audited, and built into the Linux kernel. It is faster and more secure than OpenVPN or IPsec.
+  </Accordion>
+
+  <Accordion title="Can two clients have the same LAN subnet?">
+    Yes. ProxyLink handles overlapping subnets via NETMAP — each tunnel gets a unique assigned subnet in the `10.128.0.0/9` range for translation. Two clients both using `192.168.1.0/24` work without conflict.
+  </Accordion>
+
+  <Accordion title="Is ProxyLink NIS2 compliant?">
+    ProxyLink provides the tools needed to meet NIS2 Article 21 requirements — immutable audit log, session recording, and a client-facing compliance portal. It is EU-hosted on open-source infrastructure. Consult your legal advisor for your specific obligations.
+  </Accordion>
+
+  <Accordion title="What happens if the WireGuard tunnel drops?">
+    PersistentKeepalive=25 keeps the tunnel alive. If it drops, WireGuard reconnects automatically within seconds. ProxyLink monitoring alerts you if a service becomes unreachable.
+  </Accordion>
+
+  <Accordion title="How many devices can I connect?">
+    The WireGuard pool supports up to 65,534 peers. On the MSP plan, you get 300 tunnels and 1,000 proxy links. On the Custom plan, it's unlimited.
+  </Accordion>
+</AccordionGroup>

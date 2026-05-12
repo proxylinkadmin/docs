@@ -1,0 +1,33 @@
+---
+title: Network Automations
+description: Run SSH commands on network devices automatically based on triggers — device reconnect, service down, schedule, or webhook.
+---
+
+Network automations let you SSH into a device through a ProxyLink tunnel and run commands automatically, based on a trigger.
+
+## Use cases
+
+- Restart a service when it goes down
+- Run `show vlan` on a Cisco switch when it reconnects after a power outage
+- Scheduled config backup every night
+- Trigger a script from your RMM via webhook
+
+## Supported triggers
+
+| Trigger | When it fires |
+|---------|---------------|
+| **On reconnect** | When the device's WireGuard tunnel reconnects |
+| **On service down** | When a monitored service goes down |
+| **Scheduled** | At a specific time (cron-style) |
+| **Manual** | Click "Run" from the automation list |
+| **Webhook** | An external system (NinjaRMM, Zabbix, Grafana) calls a URL |
+
+## Cisco IOS support
+
+Automations support Cisco enable mode. Set an `enable_password` on the device connection to escalate privileges before running commands.
+
+**Confirmed working:** Cisco Catalyst WS-C3750G — `show vlan` via automation.
+
+## Output and alerting
+
+Automation output is stored and viewable in the dashboard. Configure an alert channel to receive the output via Slack, Teams, or webhook when an automation fires.

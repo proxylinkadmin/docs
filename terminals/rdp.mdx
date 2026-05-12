@@ -1,0 +1,35 @@
+---
+title: RDP Terminal
+description: Browser-based Remote Desktop sessions to Windows PCs and servers.
+---
+
+ProxyLink includes a browser RDP terminal powered by Apache Guacamole — no RDP client needed.
+
+## Connect via RDP
+
+1. Click **RDP** next to a Windows PC or server in your Proxy Links list
+2. The RDP session opens in the browser
+3. Enter Windows credentials if prompted
+
+## Features
+
+- Full-screen mode
+- Minimize to floating bar (session stays alive while you use other tabs)
+- Clipboard sharing
+- Multi-monitor support (select monitor from the toolbar)
+
+## Screen sharing
+
+Share your RDP session with a client or colleague:
+
+1. Click **Share** in the RDP toolbar
+2. Send the generated link
+3. The recipient joins as a view-only observer — they can see the screen but cannot interact
+
+## Session recording
+
+Enable recording on the proxy link to capture RDP sessions as `.guac` binary files. Playable from the Recordings page.
+
+<Note>
+RDP recording requires the `disable-gfx=true` parameter (set automatically by ProxyLink). This disables H.264/GFX pipeline so guacd captures all frames correctly.
+</Note>

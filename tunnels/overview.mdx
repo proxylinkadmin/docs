@@ -1,0 +1,40 @@
+---
+title: Tunnels Overview
+description: WireGuard tunnels are the foundation of ProxyLink — each tunnel is a VPN peer that gives ProxyLink access to a device or an entire network.
+---
+
+Every device or network in ProxyLink is represented by a **tunnel** — a WireGuard peer that connects back to ProxyLink's server. Proxy links, browser terminals, and monitoring all depend on an active tunnel.
+
+## Tunnel types
+
+<CardGroup cols={2}>
+  <Card title="Router / Gateway" icon="router">
+    One tunnel on a router covers the entire LAN and all VLANs. No software on individual devices. Best for MSPs managing client sites.
+  </Card>
+  <Card title="Server / Device" icon="server">
+    A single server, VM, laptop, or Linux gateway running WireGuard directly. Best for accessing a specific machine.
+  </Card>
+  <Card title="Windows PC" icon="windows">
+    Deployed via one-liner PowerShell command. Installs WireGuard + UltraVNC for browser RDP/VNC access.
+  </Card>
+</CardGroup>
+
+## VPN IP assignment
+
+Each tunnel gets a unique IP in the `10.100.0.0/16` range (up to 65,534 peers). The IP is fixed for the lifetime of the tunnel and shown on the tunnel detail page.
+
+## Tunnel status
+
+| Status | Meaning |
+|--------|---------|
+| **Online** | WireGuard handshake within the last 3 minutes |
+| **Offline** | No handshake — device unreachable or WireGuard stopped |
+| **Pending activation** | Tunnel created but WireGuard not yet connected |
+
+## Peer isolation
+
+Each user's tunnels are isolated from other users' tunnels at the iptables level using ipsets. Cross-tenant traffic is impossible — even if two users share the same VPN IP range, they cannot reach each other's devices.
+
+## Adding VLANs
+
+After creating a router tunnel, add extra subnets from the tunnel detail page under **Additional Subnets**. ProxyLink will route traffic to those subnets through the same tunnel.

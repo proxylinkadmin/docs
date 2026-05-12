@@ -1,0 +1,35 @@
+---
+title: Windows PC
+description: Deploy ProxyLink to Windows PCs via a silent one-liner command. Works with NinjaRMM, Datto, ConnectWise, and GPO.
+---
+
+<Info>
+For the full quickstart guide, see [Windows PC — 30 Second Deploy](/quickstart-windows).
+</Info>
+
+## What gets installed
+
+| Component | Details |
+|-----------|---------|
+| WireGuard | Installed from official MSI. Config written to `C:\ProgramData\WireGuard\` |
+| UltraVNC | VNC server for browser access. Port 5900 bound to WireGuard only |
+| ProxyLink Agent | Scheduled task (SYSTEM), polls every 60s for remote commands |
+
+## Remote management
+
+Once deployed, the ProxyLink Agent allows you to push PowerShell scripts to the PC from the dashboard:
+
+- Restart WireGuard service
+- Restart UltraVNC
+- Get system info
+- Run custom scripts
+
+Results appear in the dashboard within 60 seconds.
+
+## Update config
+
+When you rotate WireGuard keys or update settings, click **Update Config** on the tunnel row. This pushes the new config to the PC automatically via the Agent — no manual steps.
+
+## Uninstall
+
+Click **Uninstall** on the tunnel row. A PowerShell script runs on the PC that removes WireGuard, UltraVNC, and the ProxyLink Agent, and cleans up firewall rules.

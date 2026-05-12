@@ -1,0 +1,33 @@
+---
+title: TCP / UDP Tunnel Links
+description: Expose any TCP or UDP service through ProxyLink.
+---
+
+TCP and UDP tunnel links expose any non-HTTP service through ProxyLink — SSH, databases, VoIP, custom protocols.
+
+## TCP tunnels
+
+TCP links require an active tunnel (VPN) — they cannot be created for non-tunnelled servers.
+
+A random port in the range 10000–20000 is assigned automatically. Connect using:
+```
+tcp.proxylink.dev:17050
+```
+
+**Example — SSH access to a network device:**
+- Target: `192.168.1.1:22` (MikroTik SSH)
+- ProxyLink URL: `tcp.proxylink.dev:17050`
+- Connect: `ssh admin@tcp.proxylink.dev -p 17050`
+
+## UDP tunnels (VoIP / SIP)
+
+UDP links are used for VoIP — SIP registration, RTP media streams. ProxyLink includes a built-in SIP ALG and RTP relay.
+
+**Example — PBX behind a router tunnel:**
+- SIP port: `192.168.40.10:5060` → exposed as UDP on ProxyLink
+- Phones register to ProxyLink's SIP endpoint
+- Calls work without a static IP on the PBX side
+
+<Warning>
+Use `tcp.proxylink.dev` (grey cloud, DNS only) for TCP/UDP links — not `proxy.proxylink.dev`. Cloudflare blocks non-HTTP ports.
+</Warning>

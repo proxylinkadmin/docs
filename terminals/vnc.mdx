@@ -1,0 +1,27 @@
+---
+title: VNC Terminal
+description: Browser-based VNC sessions using UltraVNC on Windows or any VNC server.
+---
+
+ProxyLink includes a browser VNC terminal. For Windows PCs deployed via the ProxyLink one-liner, UltraVNC is installed automatically.
+
+## Connect via VNC
+
+Click **VNC** next to any device with a VNC proxy link. The session opens in the browser.
+
+## File Manager
+
+The VNC terminal includes a built-in file manager for UltraVNC connections. Access it via the folder icon in the toolbar to:
+
+- Browse the remote file system
+- Upload files from your local machine
+- Download files to your local machine
+- Create folders, rename, delete
+
+## macOS VNC (Apple Remote Desktop)
+
+ProxyLink supports Apple Remote Desktop authentication (security type 30). When connecting to a Mac, the VNC dialog shows a username field in addition to the password.
+
+## VNC security
+
+VNC ports are only accessible through the WireGuard tunnel — they are never exposed to the internet. The UltraVNC configuration deployed by ProxyLink disables direct VNC password authentication since access is secured by the ProxyLink login and WireGuard tunnel.

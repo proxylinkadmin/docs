@@ -1,0 +1,33 @@
+---
+title: Access Policies
+description: Control who can access each proxy link.
+---
+
+Every proxy link has an access policy that controls who can reach it.
+
+## Policy types
+
+### Public
+Anyone with the URL can access the link. Suitable for services you want to share openly.
+
+### VPN-only
+Only clients connected to the ProxyLink VPN (authenticated users) can access the link. The proxy rejects all other requests.
+
+### IP Allowlist
+Only requests from specified IP addresses or CIDR ranges are allowed.
+
+```
+81.2.129.89
+192.168.1.0/24
+```
+
+### Password protected
+A password prompt appears before the proxied service is accessible.
+
+## Default policy
+
+New proxy links default to **Public**. Change the policy from the link's edit page or directly from the proxy link list.
+
+## VPN-only links
+
+VPN-only links check that the requesting IP belongs to a valid ProxyLink session. This effectively requires the user to be logged into ProxyLink to access the service — no password or IP restriction needed.

@@ -1,0 +1,30 @@
+---
+title: Alert Channels
+description: Configure where ProxyLink sends monitoring alerts — email, Slack, Teams, or custom webhooks.
+---
+
+## Slack
+
+1. Create an Incoming Webhook in your Slack workspace
+2. Paste the webhook URL in the proxy link's monitoring settings
+
+## Microsoft Teams
+
+1. Add an Incoming Webhook connector to a Teams channel
+2. Paste the webhook URL in the monitoring settings
+
+## Custom webhook
+
+ProxyLink sends a POST request with a JSON body to your URL:
+
+```json
+{
+  "event": "down",
+  "link_id": 42,
+  "link_label": "Hotel Anna — NVR",
+  "consecutive_failures": 3,
+  "timestamp": "2026-05-11T20:00:00Z"
+}
+```
+
+Events: `down`, `up`
