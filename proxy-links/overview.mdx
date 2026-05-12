@@ -1,0 +1,34 @@
+---
+title: Proxy Links Overview
+description: Proxy links expose any IP:port through ProxyLink as a public URL or browser terminal.
+---
+
+A **proxy link** is a publicly accessible URL (or browser terminal) that routes to a specific IP:port through a WireGuard tunnel.
+
+## Link types
+
+| Type | Use case |
+|------|----------|
+| **HTTP Proxy** | Web UI with HTTP |
+| **HTTPS Proxy** | Web UI with HTTPS (Synology DSM, pfSense, Ubiquiti) |
+| **TCP Tunnel** | SSH, custom TCP protocols |
+| **UDP Tunnel** | VoIP/SIP, RTP media streams |
+| **SSH Terminal** | Browser SSH session |
+| **VNC Terminal** | Browser VNC session |
+| **RDP Terminal** | Browser RDP session |
+
+## URL format
+
+HTTP/HTTPS proxy links get a subdomain on `proxy.proxylink.dev`:
+```
+https://abc123.proxy.proxylink.dev
+```
+
+TCP/UDP links use `tcp.proxylink.dev` with a port:
+```
+tcp.proxylink.dev:17050
+```
+
+## Custom domains
+
+Attach your own domain to any proxy link. Requires adding a CNAME record in your DNS.

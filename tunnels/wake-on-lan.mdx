@@ -1,0 +1,22 @@
+---
+title: Wake-on-LAN
+description: Power on remote devices through a ProxyLink tunnel by sending a WoL magic packet.
+---
+
+ProxyLink can send Wake-on-LAN magic packets to devices on the remote network through an active tunnel.
+
+## Setup
+
+1. Edit a proxy link and enter the device's **MAC address** in the WoL field
+2. Save — a **Wake** button appears on the proxy link row
+
+## Using Wake-on-LAN
+
+Click the **Wake** button. ProxyLink sends a UDP broadcast magic packet through the WireGuard tunnel to the device's subnet. The device powers on within a few seconds (if WoL is enabled in BIOS and the network adapter supports it).
+
+## Requirements
+
+- An active tunnel connected to the device's network
+- Wake-on-LAN enabled in the device's BIOS
+- The network adapter configured to accept WoL packets
+- The device connected via Ethernet (WoL over WiFi is rarely supported)

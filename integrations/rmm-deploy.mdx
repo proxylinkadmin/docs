@@ -1,0 +1,38 @@
+---
+title: RMM Deployment
+description: Deploy ProxyLink to Windows endpoints at scale via NinjaRMM, Datto, ConnectWise Automate, or GPO.
+---
+
+The ProxyLink Windows deploy script is designed for mass deployment via RMM tools. One command per machine, no user interaction.
+
+## The deploy command
+
+```powershell
+irm https://app.proxylink.dev/deploy/{token} | iex
+```
+
+Each token is single-use and expires after 30 minutes. Generate one per machine from **Tunnels** → **+ Add Windows PC**.
+
+## NinjaRMM
+
+Create a Script in NinjaRMM and set the script content to the deploy command. Run it on target devices from the device list.
+
+## Datto RMM
+
+Create a Component with the deploy command as a PowerShell script. Deploy to a site or device group.
+
+## ConnectWise Automate
+
+Create a Script under **Browse** → **Scripts** and run it against target agents.
+
+## GPO
+
+Use Group Policy to run the command as a startup script (Computer Configuration → Startup Scripts). Note that GPO startup scripts run in SYSTEM context — the command is designed for this.
+
+## Token management
+
+Generate a separate token for each machine, or generate a batch and script the deployment. Tokens can be pre-generated from the Tunnels page.
+
+## Silent install
+
+The script runs silently — no windows, no prompts, no UAC dialogs (when run as SYSTEM or elevated PowerShell). Safe for overnight deployment.

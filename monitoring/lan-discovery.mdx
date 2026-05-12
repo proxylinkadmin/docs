@@ -1,0 +1,25 @@
+---
+title: LAN Auto-Discovery
+description: Scan a client network through a ProxyLink tunnel and create proxy links for discovered devices automatically.
+---
+
+LAN discovery scans the client network through the WireGuard tunnel using fping and TCP probes, fingerprints discovered devices, and lets you create proxy links for all of them in one click.
+
+## Run a scan
+
+1. Open the tunnel detail page for a router/gateway tunnel
+2. Click **LAN Scan**
+3. ProxyLink scans the subnet and lists discovered devices with:
+   - IP address
+   - Hostname (if resolvable)
+   - Open ports
+   - Device type guess (Windows PC, router, NAS, camera, printer)
+
+## Bulk create proxy links
+
+Select the devices you want to expose and click **Create Proxy Links**. ProxyLink creates a proxy link for each selected service in one step.
+
+## Requirements
+
+- An active router/gateway tunnel connected to the network
+- The WireGuard peer must have routing access to the subnet being scanned

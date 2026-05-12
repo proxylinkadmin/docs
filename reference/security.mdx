@@ -1,0 +1,38 @@
+---
+title: Security
+description: How ProxyLink secures your infrastructure.
+---
+
+## WireGuard peer isolation
+
+Each user's tunnels are isolated from every other user's tunnels using Linux ipsets and iptables. A DROP rule at the WireGuard interface level blocks all cross-tenant traffic. Even if two users share the same VPN IP range, they cannot reach each other's devices.
+
+## No inbound ports
+
+WireGuard initiates outbound from the client device. No ports need to be open on the client's firewall or router.
+
+## VNC/RDP not internet-exposed
+
+VNC (port 5900) and RDP (port 3389) on Windows PCs deployed by ProxyLink are bound to the WireGuard interface only. The firewall on each PC blocks these ports from LAN and internet. They are only accessible through the ProxyLink tunnel.
+
+## SSRF protection
+
+ProxyLink validates the target IP of every proxy link against the tunnel's declared subnets. Requests to RFC1918 addresses outside declared subnets are blocked. This prevents using ProxyLink to proxy requests to internal infrastructure.
+
+## Rate limiting
+
+- Proxy requests: 120/minute
+- Login: 10/minute
+- RDP join: 10/minute per IP
+
+## Cloudflare WAF
+
+All traffic to `app.proxylink.dev` passes through Cloudflare with Full Strict SSL, HSTS, and WAF rules active.
+
+## EU infrastructure
+
+Hosted on Hetzner Germany. No third-party routing. Traffic stays on EU infrastructure end to end.
+
+## Responsible disclosure
+
+Found a security issue? Email `filippos@proxylink.dev` with a description. We take security reports seriously and respond within 24 hours.

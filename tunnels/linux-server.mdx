@@ -1,0 +1,24 @@
+---
+title: Linux Server
+description: Connect a Linux server or VM directly to ProxyLink.
+---
+
+<Info>
+For the full setup guide, see [Linux Server Quickstart](/quickstart-linux).
+</Info>
+
+## What the install script does
+
+1. Detects your distro and installs WireGuard via the appropriate package manager
+2. Writes the WireGuard config to `/etc/wireguard/proxylink.conf`
+3. Enables and starts `wg-quick@proxylink` as a systemd service
+4. The tunnel connects automatically on boot
+
+## Manual config
+
+Download the `.conf` file from the tunnel detail page and place it at `/etc/wireguard/proxylink.conf`:
+
+```bash
+sudo wg-quick up proxylink
+sudo systemctl enable wg-quick@proxylink
+```

@@ -1,0 +1,121 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "ProxyLink",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#2563EB",
+    "light": "#3B82F6",
+    "dark": "#1D4ED8",
+    "anchors": {
+      "from": "#2563EB",
+      "to": "#7C3AED"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Sign In",
+      "url": "https://app.proxylink.dev/login"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Get Free Access",
+    "url": "https://app.proxylink.dev/register"
+  },
+  "tabs": [],
+  "anchors": [
+    {
+      "name": "Dashboard",
+      "icon": "gauge",
+      "url": "https://app.proxylink.dev"
+    },
+    {
+      "name": "Status",
+      "icon": "circle-check",
+      "url": "https://status.proxylink.dev"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "introduction",
+        "quickstart-windows",
+        "quickstart-router",
+        "quickstart-linux"
+      ]
+    },
+    {
+      "group": "Tunnels",
+      "pages": [
+        "tunnels/overview",
+        "tunnels/windows-pc",
+        "tunnels/router-gateway",
+        "tunnels/linux-server",
+        "tunnels/multi-vlan",
+        "tunnels/wake-on-lan"
+      ]
+    },
+    {
+      "group": "Proxy Links",
+      "pages": [
+        "proxy-links/overview",
+        "proxy-links/http-https",
+        "proxy-links/tcp-udp",
+        "proxy-links/access-policies",
+        "proxy-links/custom-domains"
+      ]
+    },
+    {
+      "group": "Browser Terminals",
+      "pages": [
+        "terminals/ssh",
+        "terminals/rdp",
+        "terminals/vnc",
+        "terminals/session-recording"
+      ]
+    },
+    {
+      "group": "MSP Features",
+      "pages": [
+        "msp/teams",
+        "msp/client-groups",
+        "msp/access-links",
+        "msp/noc-dashboard",
+        "msp/asset-inventory",
+        "msp/nis2-compliance"
+      ]
+    },
+    {
+      "group": "Monitoring & Automations",
+      "pages": [
+        "monitoring/updown-monitoring",
+        "monitoring/alerts",
+        "monitoring/network-automations",
+        "monitoring/lan-discovery"
+      ]
+    },
+    {
+      "group": "Integrations",
+      "pages": [
+        "integrations/rmm-deploy",
+        "integrations/mikrotik-autoconfig",
+        "integrations/webhooks"
+      ]
+    },
+    {
+      "group": "Reference",
+      "pages": [
+        "reference/faq",
+        "reference/security",
+        "reference/changelog"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "website": "https://proxylink.dev"
+  }
+}

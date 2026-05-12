@@ -1,0 +1,44 @@
+---
+title: NIS2 Compliance
+description: ProxyLink's audit log and compliance portal support NIS2 Article 21 requirements for MSPs operating in the EU.
+---
+
+ProxyLink is built for European MSPs operating under NIS2 (Greece Law 5160/2024 and EU Directive 2022/2555). The audit log and compliance portal are designed to meet Article 21 requirements for privileged access monitoring.
+
+## Audit log
+
+Every SSH, RDP, and VNC session is logged with:
+
+- Who connected (user name and email)
+- When (timestamp in local time)
+- From where (source IP)
+- To which device
+- Session duration
+- Link to session recording (if enabled)
+
+The audit log is **immutable** — entries cannot be edited or deleted. Export as CSV for client reports or regulatory submissions.
+
+Access: **More** → **Audit Log**
+
+## Compliance portal
+
+Generate a client-facing compliance report without giving the client a ProxyLink account:
+
+1. Go to the client group → **NIS2 Compliance Portal**
+2. Generate a token-gated URL
+3. Share with the client or auditor
+
+The portal shows the audit log for that client's devices only. No other clients' data is visible.
+
+## NIS2 relevance
+
+Under NIS2, your clients' risk assessments must account for their supply chain — including the remote access tools their MSP uses. ProxyLink's compliance portal directly answers that requirement:
+
+- EU-hosted infrastructure (Hetzner Germany)
+- Open-source WireGuard protocol — no proprietary black-box routing
+- Full session audit trail with recordings
+- No third-party routing — traffic stays on EU infrastructure end to end
+
+<Note>
+NIS2 Article 21 requires "appropriate measures" for privileged access. ProxyLink's audit log and session recording are designed to satisfy this requirement. Consult your legal advisor for your specific obligations.
+</Note>

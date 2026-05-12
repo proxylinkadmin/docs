@@ -1,0 +1,34 @@
+---
+title: MikroTik Auto-Config
+description: ProxyLink can configure a MikroTik RouterOS 7 router automatically via SSH.
+---
+
+For MikroTik routers, ProxyLink can apply the full WireGuard configuration, firewall rules, and mangle rules automatically — no manual terminal access needed.
+
+## Requirements
+
+- MikroTik RouterOS 7.x
+- SSH access to the router from ProxyLink's server (port 22, or configure SSH on the router's WAN interface)
+- Admin credentials
+
+## Run auto-config
+
+1. Go to **Tunnels** → **Auto-Config Router**
+2. Enter the router's IP, SSH port, username, and password
+3. Click **Test Connection** to verify access
+4. Click **Configure** — ProxyLink applies the WireGuard config and firewall rules
+
+## What gets applied
+
+- WireGuard interface and peer configuration
+- Firewall forward rules for tunnel traffic
+- Mangle rules to exempt ProxyLink traffic from load balancing
+- IP routes for all subnets
+
+## Manual alternative
+
+Download the `.rsc` script from the tunnel detail page and run it in the MikroTik terminal:
+
+```
+/import file=proxylink-config.rsc
+```

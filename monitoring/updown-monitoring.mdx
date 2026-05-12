@@ -1,0 +1,44 @@
+---
+title: Up/Down Monitoring
+description: ProxyLink checks your services every 5 minutes and alerts you when something goes down.
+---
+
+ProxyLink monitors any proxy link and sends alerts when the service goes down or comes back up.
+
+## Enable monitoring
+
+Edit a proxy link and toggle **Monitoring** on. Choose the check method:
+
+| Method | Use case |
+|--------|----------|
+| **TCP** | Any TCP service — checks if the port accepts connections |
+| **ICMP (ping)** | Network devices that respond to ping |
+
+## Alert channels
+
+Configure alert destinations on the proxy link:
+
+- **Email** — sent to your account email
+- **Slack** — paste a Slack webhook URL
+- **Microsoft Teams** — paste a Teams webhook URL
+- **Custom webhook** — any URL that accepts POST requests
+
+## Alert format (webhook)
+
+```json
+{
+  "event": "down",
+  "link": "Hotel Anna — NVR",
+  "url": "https://abc123.proxy.proxylink.dev",
+  "timestamp": "2026-05-11T20:00:00Z",
+  "consecutive_failures": 3
+}
+```
+
+## Spam prevention
+
+A 30-minute cooldown prevents repeated alerts for the same service. You get one alert when it goes down, and one when it recovers.
+
+## NOC dashboard
+
+All monitored services appear on the NOC dashboard with live status.

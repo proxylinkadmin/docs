@@ -1,0 +1,57 @@
+---
+title: Linux Server
+description: Connect a Linux server, VM, or VPS to ProxyLink using a WireGuard install script.
+---
+
+Connect any Linux server or VM directly to ProxyLink. One script installs WireGuard, writes the config, and enables the service.
+
+## Supported distributions
+
+Ubuntu 20.04+, Debian 11+, RHEL/AlmaLinux/Rocky 8+, Fedora, Arch Linux.
+
+## Setup
+
+<Steps>
+  <Step title="Create a Server / Device tunnel">
+    In ProxyLink, go to **Tunnels** → **+ New Tunnel** → select **Public Server / Device**. Enter a label for the server.
+  </Step>
+  <Step title="Download and run the install script">
+    Click **Activate & Download** → select **Linux**. Run the downloaded script as root:
+    ```bash
+    sudo bash proxylink-setup.sh
+    ```
+    The script installs WireGuard, writes the config to `/etc/wireguard/proxylink.conf`, and enables the service.
+  </Step>
+  <Step title="Verify the tunnel is connected">
+    Check the tunnel status in ProxyLink — it should show **Online** within a few seconds.
+
+    On the server:
+    ```bash
+    sudo wg show
+    ```
+  </Step>
+  <Step title="Create proxy links">
+    Go to **Proxy Links** → **+ Create Proxy Link** to expose services running on the server (SSH port 22, web app port 8080, etc.).
+  </Step>
+</Steps>
+
+## macOS
+
+Download the WireGuard app from the Mac App Store, import the `.conf` file downloaded from ProxyLink, and toggle the tunnel on.
+
+## Manual WireGuard config
+
+If you prefer to configure WireGuard manually, the config file is available on the tunnel page. It follows standard WireGuard format:
+
+```ini
+[Interface]
+PrivateKey = <generated>
+Address = 10.100.x.x/16
+DNS = 1.1.1.1
+
+[Peer]
+PublicKey = <proxylink server key>
+AllowedIPs = 10.100.0.0/16
+Endpoint = 46.225.153.241:51820
+PersistentKeepalive = 25
+```

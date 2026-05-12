@@ -1,0 +1,36 @@
+---
+title: Custom Domains
+description: Use your own domain for proxy links instead of the default proxy.proxylink.dev subdomain.
+---
+
+Attach a custom domain to a proxy link to serve it at your own URL.
+
+## Setup
+
+<Steps>
+  <Step title="Add a domain in ProxyLink">
+    Go to **Domains** → **+ Add Domain**. Enter your domain (e.g. `remote.yourdomain.com`).
+  </Step>
+  <Step title="Add a CNAME record">
+    In your DNS provider, add a CNAME record:
+    ```
+    remote.yourdomain.com → proxy.proxylink.dev
+    ```
+  </Step>
+  <Step title="Attach to a proxy link">
+    Edit the proxy link and select your custom domain from the **Attach to domain** dropdown.
+  </Step>
+</Steps>
+
+## SSL certificates
+
+ProxyLink automatically provisions and renews Let's Encrypt certificates for custom domains. No manual certificate management needed.
+
+## Plan limits
+
+| Plan | Custom domains |
+|------|---------------|
+| Free | — |
+| Developer | 3 |
+| MSP | 10 |
+| Custom | Unlimited |

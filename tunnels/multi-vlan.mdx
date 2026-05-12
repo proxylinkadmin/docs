@@ -1,0 +1,29 @@
+---
+title: Multi-VLAN Support
+description: Reach devices across multiple VLANs through a single WireGuard tunnel.
+---
+
+ProxyLink supports accessing devices across multiple VLANs through a single tunnel. This is essential for MSPs managing complex client networks with separate VLANs for servers, cameras, VoIP, and workstations.
+
+## How to add VLANs
+
+1. Open the tunnel detail page
+2. Under **Additional Subnets**, click **Add Subnet**
+3. Enter the VLAN subnet (e.g. `192.168.40.0/24`)
+4. Save — ProxyLink updates the WireGuard AllowedIPs and routing immediately
+
+## Example
+
+A hotel with three VLANs on one MikroTik router:
+
+| VLAN | Subnet | Devices |
+|------|--------|---------|
+| Main LAN | 192.168.1.0/24 | PCs, printers, NAS |
+| PBX | 192.168.40.0/24 | Matrix PBX, VoIP phones |
+| Cameras | 192.168.20.0/24 | NVR, IP cameras |
+
+Create proxy links for the PBX admin panel (`192.168.40.1:80`), NVR web UI (`192.168.20.1:80`), and any Windows PCs — all through the same tunnel.
+
+## Router requirements
+
+The router must route traffic between the WireGuard interface and all VLANs. For MikroTik, add forward chain rules for each VLAN interface to the WireGuard interface.

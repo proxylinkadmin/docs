@@ -1,0 +1,38 @@
+---
+title: Session Recording
+description: Record SSH, RDP, and VNC sessions for compliance, auditing, and troubleshooting.
+---
+
+ProxyLink can record all SSH, RDP, and VNC sessions. Recordings are stored on the server and playable directly in the browser.
+
+## Enable recording
+
+Edit a proxy link and toggle **Session Recording** on.
+
+## Viewing recordings
+
+Go to **More** → **Recordings**. Each session shows the date, user, device, and duration. Click **Play** to replay the session in the browser.
+
+## Storage and retention
+
+| Plan | Retention | Storage cap |
+|------|-----------|-------------|
+| Early Access | 3 days | 200MB per user |
+| Developer | 14 days | — |
+| MSP | 14 days | — |
+
+Recordings are automatically deleted after the retention period.
+
+## Recording formats
+
+| Protocol | Format |
+|----------|--------|
+| SSH | asciicast v2 (`.cast`) |
+| RDP | Guacamole binary (`.guac`) |
+| VNC | Guacamole binary (`.guac`) |
+
+Both formats are playable directly in the ProxyLink browser player. SSH recordings can also be downloaded and played with any asciicast-compatible tool.
+
+## NIS2 compliance
+
+Session recordings contribute to NIS2 Article 21 requirements for audit trails of privileged access. The audit log records who connected, when, from where, and for how long — and links directly to the session recording.

@@ -1,0 +1,92 @@
+---
+title: Router / Gateway — Full LAN Access
+description: One WireGuard tunnel on a router gives ProxyLink access to every device on the LAN and all VLANs. No software on individual devices.
+---
+
+This is ProxyLink's most powerful setup. One tunnel on a router or Linux gateway gives you access to every device on the network — cameras, NVRs, PBX systems, printers, switches — without installing anything on them.
+
+## How it works
+
+The router establishes a WireGuard tunnel to ProxyLink. ProxyLink routes traffic through that tunnel to any IP on the router's LAN. From the engineer's perspective, they click a device in the browser and they're in — regardless of what the device is.
+
+## Supported platforms
+
+| Platform | Method |
+|----------|--------|
+| MikroTik RouterOS 7 | WireGuard native + auto-config |
+| pfSense / OPNsense | WireGuard package |
+| OpenWRT | WireGuard package |
+| Linux (Raspberry Pi, Debian, Ubuntu) | Install script |
+| Ubiquiti UniFi | WireGuard via Linux gateway |
+
+## Setup
+
+<Steps>
+  <Step title="Create a Router / Gateway tunnel">
+    In ProxyLink, go to **Tunnels** → **+ New Tunnel** → select **Router / Gateway**. Enter a name and your LAN subnet (e.g. `192.168.1.0/24`).
+  </Step>
+  <Step title="Download and install the config">
+    Click **Activate & Download**. Select your platform — MikroTik, pfSense/OpenWRT, or Linux. ProxyLink generates the WireGuard config and install script.
+
+    <Tabs>
+      <Tab title="MikroTik">
+        Use **Auto-Config Router** for automatic setup via SSH, or download the `.rsc` script and run it manually in the terminal.
+      </Tab>
+      <Tab title="pfSense / OPNsense">
+        Install the WireGuard package, import the `.conf` file, and add the peer.
+      </Tab>
+      <Tab title="OpenWRT">
+        Run the downloaded `.sh` script as root. It installs WireGuard and sets up the interface.
+      </Tab>
+      <Tab title="Linux Gateway">
+        Download and run the `.sh` install script. Works on Ubuntu, Debian, Raspberry Pi OS.
+        ```bash
+        sudo bash proxylink-gateway-setup.sh
+        ```
+      </Tab>
+    </Tabs>
+  </Step>
+  <Step title="Add proxy links for each device">
+    Once the tunnel is connected, go to **Proxy Links** → **+ Create Proxy Link**. Enter the device's LAN IP and port. Repeat for each service.
+  </Step>
+</Steps>
+
+## Multi-VLAN support
+
+ProxyLink supports multiple VLANs on a single tunnel. After creating the tunnel, go to the tunnel settings and add extra subnets under **Additional Subnets**.
+
+```
+Main LAN:    192.168.1.0/24
+PBX VLAN:   192.168.40.0/24
+Camera VLAN: 192.168.20.0/24
+```
+
+All three are reachable through the same tunnel — no additional configuration on the devices.
+
+## MikroTik auto-configuration
+
+ProxyLink can configure MikroTik routers automatically via SSH:
+
+1. Go to **Tunnels** → **Auto-Config Router**
+2. Enter the router's IP, SSH credentials, and LAN interface name
+3. ProxyLink connects via SSH and applies the WireGuard config, firewall rules, and mangle rules in one step
+
+<Warning>
+Do not add srcnat masquerade rules in RouterOS for ProxyLink traffic — this breaks return routing. ProxyLink uses NETMAP (not masquerade) for overlapping subnet translation.
+</Warning>
+
+## Required MikroTik firewall rules
+
+If configuring manually, add these rules to RouterOS:
+
+```routeros
+# Allow ProxyLink to reach LAN
+/ip firewall filter add chain=forward action=accept in-interface=ProxyLink out-interface=Local
+
+# Allow return traffic
+/ip firewall filter add chain=forward action=accept connection-state=established,related in-interface=Local out-interface=ProxyLink
+
+# Mangle — exempt from load-balancing (add before load-balance rules)
+/ip firewall mangle add chain=prerouting action=accept src-address=192.168.100.0/24 dst-address=10.100.0.0/24
+/ip firewall mangle add chain=prerouting action=accept src-address=10.100.0.0/24 dst-address=192.168.100.0/24
+```

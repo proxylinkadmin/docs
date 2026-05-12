@@ -1,0 +1,32 @@
+---
+title: HTTP / HTTPS Proxy Links
+description: Expose any web interface through ProxyLink as a public URL.
+---
+
+HTTP and HTTPS proxy links create a publicly accessible URL that forwards traffic to any web server on your tunnelled network.
+
+## Create an HTTP proxy link
+
+1. Go to **Proxy Links** → **+ Create Proxy Link**
+2. Select **HTTP Proxy** or **HTTPS Proxy**
+3. Enter the target server IP and port
+4. Set an access policy (public, VPN-only, IP allowlist, or password)
+5. Save
+
+The link is immediately active at `https://abc123.proxy.proxylink.dev`.
+
+## HTTPS proxy links
+
+Use HTTPS proxy when the target server expects HTTPS connections — Synology DSM, pfSense, Ubiquiti UniFi, and most modern web UIs. ProxyLink terminates SSL at its edge and forwards to the target.
+
+<Note>
+TCP links on ports 443, 8443, and 5001 also get SSL termination with a valid Let's Encrypt certificate — useful for devices that need a trusted cert.
+</Note>
+
+## Cookie handling
+
+ProxyLink preserves upstream cookies unchanged, including multi-cookie headers. This ensures applications like Matrix PBX and other session-heavy web UIs work correctly through the proxy.
+
+## Request logging
+
+All requests through HTTP/HTTPS proxy links are logged with timestamp, source IP, method, path, and response code. Access the logs from the proxy link detail page.

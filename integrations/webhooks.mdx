@@ -1,0 +1,58 @@
+---
+title: Webhook Reference
+description: Webhook payloads sent by ProxyLink for monitoring events and network automation triggers.
+---
+
+## Monitoring alerts
+
+ProxyLink sends a POST request to your webhook URL when a monitored service changes state.
+
+### Service down
+
+```json
+{
+  "event": "down",
+  "link_id": 42,
+  "link_label": "Hotel Anna — NVR",
+  "link_url": "https://abc123.proxy.proxylink.dev",
+  "consecutive_failures": 3,
+  "timestamp": "2026-05-11T20:00:00Z"
+}
+```
+
+### Service recovered
+
+```json
+{
+  "event": "up",
+  "link_id": 42,
+  "link_label": "Hotel Anna — NVR",
+  "link_url": "https://abc123.proxy.proxylink.dev",
+  "downtime_seconds": 420,
+  "timestamp": "2026-05-11T20:07:00Z"
+}
+```
+
+## Network automation trigger
+
+Trigger a network automation from an external system (NinjaRMM, Zabbix, Grafana) by calling the automation's webhook URL:
+
+```bash
+curl -X POST https://app.proxylink.dev/automations/{id}/trigger \
+  -H "Authorization: Bearer {token}"
+```
+
+The automation runs immediately and returns the output.
+
+## Request headers
+
+All incoming webhooks from ProxyLink include:
+
+```
+Content-Type: application/json
+X-ProxyLink-Event: down|up|automation_fired
+```
+
+## Verifying requests
+
+Configure a shared secret on your webhook endpoint and check the `X-ProxyLink-Signature` header to verify the request came from ProxyLink.

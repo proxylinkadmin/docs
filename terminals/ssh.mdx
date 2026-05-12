@@ -1,0 +1,31 @@
+---
+title: SSH Terminal
+description: Browser-based SSH sessions to any device on a ProxyLink tunnel.
+---
+
+ProxyLink includes a full SSH terminal in the browser — no SSH client, no VPN software on the engineer's machine.
+
+## Connect via SSH
+
+1. Open the proxy link for the target device
+2. Click **SSH** — a terminal opens in the browser
+3. Enter credentials and connect
+
+The terminal supports full terminal features — colour output, tab completion, vim, tmux.
+
+## Session recording
+
+Enable session recording on the proxy link to capture every SSH session as an asciicast file. Recordings are stored for 14 days (3 days on Early Access) and playable from the **Recordings** page.
+
+## Supported auth methods
+
+- Username + password
+- Username + private key (paste the key in the connection dialog)
+
+## TCP proxy SSH
+
+For devices accessible only via a TCP tunnel link (not a browser terminal), connect using a standard SSH client:
+
+```bash
+ssh admin@tcp.proxylink.dev -p 17050
+```

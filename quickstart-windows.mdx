@@ -1,0 +1,70 @@
+---
+title: Windows PC — 30 Second Deploy
+description: Deploy ProxyLink to a Windows PC with one PowerShell command. WireGuard and VNC installed silently, no manual steps.
+---
+
+The Windows one-liner installs WireGuard and UltraVNC silently, registers the PC with ProxyLink, and makes it accessible via browser RDP/VNC from anywhere.
+
+## Prerequisites
+
+- Windows 10/11 or Windows Server 2012 R2 and later
+- PowerShell (run as Administrator)
+- Internet access on the target machine
+
+## Deploy
+
+<Steps>
+  <Step title="Create a Windows PC tunnel">
+    In ProxyLink, go to **Tunnels** → **+ Add Windows PC**. ProxyLink generates a one-time deploy command.
+  </Step>
+  <Step title="Run the command on the target PC">
+    Open PowerShell as Administrator and run the generated command:
+    ```powershell
+    irm https://app.proxylink.dev/deploy/{token} | iex
+    ```
+    The script installs WireGuard and UltraVNC silently. Takes about 30 seconds.
+  </Step>
+  <Step title="PC appears in your dashboard">
+    Once the WireGuard tunnel connects, the PC registers its hostname automatically. You'll see it online in your Tunnels list.
+  </Step>
+  <Step title="Connect via browser">
+    Click **VNC** or **RDP** next to the device in your Proxy Links list. A browser terminal opens — no client software needed.
+  </Step>
+</Steps>
+
+## What the script installs
+
+| Component | Purpose |
+|-----------|---------|
+| WireGuard | VPN tunnel back to ProxyLink |
+| UltraVNC | VNC server for browser access |
+| ProxyLink Agent | Polls every 60s for remote commands (push scripts, restart services) |
+
+## Deploy via RMM
+
+The command works with any RMM tool that can run PowerShell:
+
+```powershell
+# NinjaRMM, Datto, ConnectWise Automate, GPO
+irm https://app.proxylink.dev/deploy/{token} | iex
+```
+
+Each token is single-use and expires after 30 minutes. Generate a new one from the Tunnels page for each machine.
+
+## After deploy
+
+- VNC and RDP ports are **only accessible through the WireGuard tunnel** — not exposed to the internet
+- The ProxyLink Agent runs as a Windows service (SYSTEM account) — no window visible to users
+- To update WireGuard keys or push a new config, use the **Update Config** button on the tunnel row
+
+## Supported Windows versions
+
+| Version | Status |
+|---------|--------|
+| Windows 11 | ✓ Tested |
+| Windows 10 | ✓ Tested |
+| Windows Server 2025 | ✓ Tested |
+| Windows Server 2022 | ✓ Tested |
+| Windows Server 2019 | ✓ Tested |
+| Windows Server 2016 | ✓ Tested |
+| Windows Server 2012 R2 | ✓ Tested |
