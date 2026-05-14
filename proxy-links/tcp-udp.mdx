@@ -28,6 +28,12 @@ UDP links are used for VoIP — SIP registration, RTP media streams. ProxyLink i
 - Phones register to ProxyLink's SIP endpoint
 - Calls work without a static IP on the PBX side
 
+## SSL termination on HTTPS ports
+
+TCP links on ports **443, 8443, and 5001** automatically get SSL termination with a valid Let's Encrypt certificate for `tcp.proxylink.dev`. This means web UIs that require HTTPS — Ubiquiti UniFi, Synology DSM, pfSense, OPNsense — show a trusted certificate in the browser with no manual cert setup.
+
+For all other ports, connections are plain TCP (no SSL). Add HTTPS proxy links for those instead.
+
 <Warning>
 Use `tcp.proxylink.dev` (grey cloud, DNS only) for TCP/UDP links — not `proxy.proxylink.dev`. Cloudflare blocks non-HTTP ports.
 </Warning>

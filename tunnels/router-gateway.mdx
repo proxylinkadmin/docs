@@ -3,29 +3,93 @@ title: Router / Gateway
 description: One WireGuard tunnel on a router gives access to every device on the LAN and all VLANs. No software on individual devices.
 ---
 
-<Info>
-For the full setup guide, see [Router / Gateway Quickstart](/quickstart-router).
-</Info>
+A Router / Gateway tunnel is ProxyLink's most powerful setup. One WireGuard peer on a router covers the entire LAN and all VLANs — cameras, NVRs, PBX systems, switches, printers — without installing anything on those devices.
 
 ## Supported platforms
 
-MikroTik RouterOS 7, pfSense, OPNsense, OpenWRT, Linux (Raspberry Pi, Debian, Ubuntu).
+| Platform | Method |
+|----------|--------|
+| MikroTik RouterOS 7 | WireGuard native + auto-config |
+| pfSense / OPNsense | WireGuard package |
+| OpenWRT | WireGuard package (`luci-proto-wireguard`) |
+| Linux (Debian, Ubuntu, Raspberry Pi) | Install script |
 
-## Multi-VLAN
+## Setup
 
-Add extra subnets from the tunnel detail page. ProxyLink routes to all of them through the same WireGuard peer.
+<Steps>
+  <Step title="Create a Router / Gateway tunnel">
+    Go to **Tunnels** → **+ New Tunnel** → select **Router / Gateway**. Enter a name and your LAN subnet (e.g. `192.168.1.0/24`).
+  </Step>
+  <Step title="Install the config on the router">
+    Click **Activate & Download** and select your platform.
+
+    <Tabs>
+      <Tab title="MikroTik">
+        Use **Auto-Config Router** for fully automatic setup via SSH. Or download the `.rsc` script and run it manually in the MikroTik terminal:
+        ```
+        /import file=proxylink-config.rsc
+        ```
+      </Tab>
+      <Tab title="pfSense / OPNsense">
+        Install the WireGuard package, add a new tunnel, and import the peer config. Add a gateway route for `10.100.0.0/16` via the WireGuard interface.
+      </Tab>
+      <Tab title="OpenWRT">
+        Run the downloaded `.sh` script as root. It installs the WireGuard package and sets up the interface automatically.
+      </Tab>
+      <Tab title="Linux Gateway">
+        Run the install script as root:
+        ```bash
+        sudo bash proxylink-gateway-setup.sh
+        ```
+        Works on Ubuntu, Debian, Raspberry Pi OS. The script enables IP forwarding and sets up routing.
+      </Tab>
+    </Tabs>
+  </Step>
+  <Step title="Add proxy links for each device">
+    Once the tunnel is connected, go to **Proxy Links** → **+ Create Proxy Link**. Enter the device's LAN IP and port. One proxy link per service — repeat for each device or service you want to expose.
+  </Step>
+</Steps>
+
+## Multi-VLAN support
+
+Add extra subnets from the tunnel detail page under **Additional Subnets**. ProxyLink updates the WireGuard AllowedIPs and routing immediately — no reconnection needed.
 
 **Example — Hotel Anna setup:**
-- Main LAN: `192.168.1.0/24` — Windows PCs, printers
-- PBX VLAN: `192.168.40.0/24` — PBX admin panel, VoIP phones
-- Camera VLAN: `192.168.20.0/24` — NVR, IP cameras
 
-One tunnel. All three VLANs accessible from the browser.
+| VLAN | Subnet | Devices |
+|------|--------|---------|
+| Main LAN | `192.168.1.0/24` | Windows PCs, printers, NAS |
+| PBX VLAN | `192.168.40.0/24` | PBX admin panel, VoIP phones |
+| Camera VLAN | `192.168.20.0/24` | NVR, IP cameras |
+
+One tunnel. All three VLANs accessible through the browser. For each additional VLAN, add matching mangle rules on the router to exempt ProxyLink traffic from load balancing.
 
 ## Overlapping subnets
 
-If two client sites use the same subnet (e.g. both use `192.168.1.0/24`), ProxyLink handles this via NETMAP — each tunnel gets a unique assigned subnet in the `10.128.0.0/9` range for translation. No conflict between clients.
+If two client sites use the same subnet (e.g. both use `192.168.1.0/24`), ProxyLink handles this via NETMAP — each tunnel gets a unique assigned subnet in the `10.128.0.0/9` range for translation. No conflict between clients, no reconfiguration needed on either site.
+
+## MikroTik firewall rules
+
+If configuring MikroTik manually, add these rules. Repeat the mangle rules for each additional VLAN subnet:
+
+```routeros
+# Forward chain
+/ip firewall filter add chain=forward action=accept in-interface=ProxyLink out-interface=Local comment="ProxyLink to LAN"
+/ip firewall filter add chain=forward action=accept connection-state=established,related in-interface=Local out-interface=ProxyLink comment="ProxyLink return traffic"
+
+# Mangle — exempt from load-balancing (must be before load-balance rules)
+/ip firewall mangle add chain=prerouting action=accept src-address=192.168.1.0/24 dst-address=10.100.0.0/24 comment="ProxyLink"
+/ip firewall mangle add chain=prerouting action=accept src-address=10.100.0.0/24 dst-address=192.168.1.0/24 comment="ProxyLink"
+```
+
+<Warning>
+Do not add `srcnat masquerade` rules for ProxyLink traffic. Masquerade breaks return routing in RouterOS because mangle runs before NAT de-masquerade. ProxyLink uses NETMAP for overlapping subnet translation, not masquerade.
+</Warning>
 
 ## Wake-on-LAN
 
-Set a MAC address on any proxy link and a **Wake** button appears. ProxyLink sends the magic packet through the tunnel to wake the device.
+Set a MAC address on any proxy link and a **Wake** button appears. ProxyLink sends the magic packet through the tunnel to wake the device remotely — no broadcast relay needed on-site.
+
+## LAN scan
+
+From the tunnel detail page, click **LAN Scan** to discover devices on the network automatically. ProxyLink probes the subnet and fingerprints devices, then lets you create proxy links for all of them in one click.

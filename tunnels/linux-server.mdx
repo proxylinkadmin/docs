@@ -1,24 +1,64 @@
 ---
 title: Linux Server
-description: Connect a Linux server or VM directly to ProxyLink.
+description: Connect a Linux server, VM, or VPS to ProxyLink using WireGuard.
 ---
 
-<Info>
-For the full setup guide, see [Linux Server Quickstart](/quickstart-linux).
-</Info>
+Connect any Linux server or VM directly to ProxyLink. Supported on Ubuntu 20.04+, Debian 11+, RHEL/AlmaLinux/Rocky 8+, Fedora, and Arch Linux.
 
-## What the install script does
+## Setup
 
-1. Detects your distro and installs WireGuard via the appropriate package manager
-2. Writes the WireGuard config to `/etc/wireguard/proxylink.conf`
-3. Enables and starts `wg-quick@proxylink` as a systemd service
-4. The tunnel connects automatically on boot
+<Steps>
+  <Step title="Create a Server / Device tunnel">
+    Go to **Tunnels** → **+ New Tunnel** → select **Server / Device**. Enter a label for the server.
+  </Step>
+  <Step title="Download and run the install script">
+    Click **Activate & Download** → select **Linux**. Run the script as root on the target machine:
+    ```bash
+    sudo bash proxylink-setup.sh
+    ```
+    The script detects your distro, installs WireGuard via the appropriate package manager, writes the config to `/etc/wireguard/proxylink.conf`, and enables the service.
+  </Step>
+  <Step title="Verify the connection">
+    The tunnel shows **Online** in ProxyLink within a few seconds.
 
-## Manual config
+    On the server, verify with:
+    ```bash
+    sudo wg show
+    ```
+  </Step>
+  <Step title="Create proxy links">
+    Go to **Proxy Links** → **+ Create Proxy Link** to expose services running on the server — SSH (port 22), web apps, database admin panels, anything reachable on the machine.
+  </Step>
+</Steps>
 
-Download the `.conf` file from the tunnel detail page and place it at `/etc/wireguard/proxylink.conf`:
+## Manual WireGuard config
+
+If you prefer to configure WireGuard manually, download the `.conf` file from the tunnel detail page and place it at `/etc/wireguard/proxylink.conf`:
+
+```ini
+[Interface]
+PrivateKey = <generated>
+Address = 10.100.x.x/16
+DNS = 1.1.1.1
+
+[Peer]
+PublicKey = <proxylink server key>
+AllowedIPs = 10.100.0.0/16
+Endpoint = 46.225.153.241:51820
+PersistentKeepalive = 25
+```
+
+Then bring it up and enable on boot:
 
 ```bash
 sudo wg-quick up proxylink
 sudo systemctl enable wg-quick@proxylink
 ```
+
+## macOS
+
+Download the WireGuard app from the Mac App Store, import the `.conf` file downloaded from ProxyLink, and toggle the tunnel on. The config format is identical to Linux.
+
+## Difference from Router / Gateway
+
+A Server / Device tunnel only covers the machine running WireGuard itself. If you need access to other devices on the same LAN — cameras, switches, NVRs — use a **Router / Gateway** tunnel instead and set the LAN subnet.

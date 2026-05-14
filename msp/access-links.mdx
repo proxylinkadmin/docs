@@ -1,24 +1,34 @@
 ---
 title: Access Links
-description: Share device access with clients without requiring a ProxyLink account.
+description: Share device access with clients or colleagues without requiring a ProxyLink account.
 ---
 
-Access links let you share access to a specific device with anyone — no ProxyLink account required.
+Access links let you share access to a specific device with anyone — no ProxyLink account required on the recipient's side. Useful for giving a client access to their own server, or sharing a device with a contractor.
 
 ## Create an access link
 
-1. Open a proxy link detail page
+1. Open the proxy link detail page for the device you want to share
 2. Click **Share** → **Create Access Link**
-3. Optionally set an expiry date and stored credentials
-4. Share the URL with the recipient
+3. Optionally set:
+   - **Expiry date** — the link stops working after this date
+   - **Stored credentials** — username/password pre-filled so the recipient connects automatically
+4. Copy the generated URL and send it to the recipient
 
-## How access links work
+## How it works
 
-The recipient opens the URL and immediately accesses the device — no login, no ProxyLink account. If stored credentials are configured, they connect automatically.
+The recipient opens the URL in a browser. If stored credentials are configured, the session opens immediately with no login prompt. If not, they see a connection dialog to enter credentials.
+
+The link works for SSH, RDP, VNC, and HTTP/HTTPS proxy links — any type of proxy link can be shared.
 
 ## Security
 
-- Access links are single-device — the recipient cannot navigate to other devices
-- Expiry dates limit how long the link is valid
-- Links can be revoked at any time from the proxy link detail page
-- All access link sessions appear in the audit log
+- **Single-device scope** — the recipient can only access the specific device the link was created for. They cannot navigate to other devices or see anything else in your ProxyLink account.
+- **Expiry** — set an expiry date for time-limited access (e.g. for a contractor working on-site for a week). After expiry, the link returns a 404.
+- **Revoke at any time** — delete the access link from the proxy link detail page to immediately cut off access.
+- **Audit log** — every session initiated via an access link is logged in the audit log with the access link identifier, timestamp, and source IP.
+
+## Use cases
+
+- Give a hotel client access to their NVR camera stream without a ProxyLink account
+- Share a server console with an external auditor for a limited time
+- Let a client's IT person connect to a specific device without seeing your entire infrastructure
