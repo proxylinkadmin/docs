@@ -50,9 +50,5 @@ All incoming webhooks from ProxyLink include:
 
 ```
 Content-Type: application/json
-X-ProxyLink-Event: down|up|automation_fired
+X-ProxyLink-Event: down|up
 ```
-
-## Verifying requests
-
-Configure a shared secret on your webhook endpoint and check the `X-ProxyLink-Signature` header to verify the request came from ProxyLink.

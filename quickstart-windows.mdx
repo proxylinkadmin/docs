@@ -1,6 +1,6 @@
 ---
 title: Windows PC — 30 Second Deploy
-description: Deploy ProxyLink to a Windows PC with one PowerShell command. WireGuard and VNC installed silently, no manual steps.
+description: Deploy ProxyLink to a Windows PC with one PowerShell command. WireGuard and UltraVNC installed silently.
 ---
 
 The Windows one-liner installs WireGuard and UltraVNC silently, registers the PC with ProxyLink, and makes it accessible via browser RDP/VNC from anywhere.
@@ -26,6 +26,11 @@ The Windows one-liner installs WireGuard and UltraVNC silently, registers the PC
   </Step>
   <Step title="PC appears in your dashboard">
     Once the WireGuard tunnel connects, the PC registers its hostname automatically. You'll see it online in your Tunnels list.
+  </Step>
+  <Step title="One manual step — enable VNC access">
+    After the script finishes, right-click the UltraVNC icon in the system tray → **Properties** → **Security** tab → uncheck **"VNC Password required"** → click **Apply**, then **OK**.
+
+    The script prints this instruction as a reminder. This step is required because UltraVNC ignores the INI setting for auth on fresh installs.
   </Step>
   <Step title="Connect via browser">
     Click **VNC** or **RDP** next to the device in your Proxy Links list. A browser terminal opens — no client software needed.
