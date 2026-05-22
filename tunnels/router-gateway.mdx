@@ -7,12 +7,18 @@ A Router / Gateway tunnel is ProxyLink's most powerful setup. One WireGuard peer
 
 ## Supported platforms
 
-| Platform | Method |
-|----------|--------|
-| MikroTik RouterOS 7 | WireGuard native + auto-config |
-| pfSense / OPNsense | WireGuard package |
-| OpenWRT | WireGuard package (`luci-proto-wireguard`) |
-| Linux (Debian, Ubuntu, Raspberry Pi) | Install script |
+| Platform | Support | Notes |
+|----------|---------|-------|
+| MikroTik RouterOS 7 | ✅ Full | WireGuard native + auto-config |
+| pfSense / OPNsense | ✅ Full | WireGuard package |
+| OpenWRT | ✅ Full | `luci-proto-wireguard` package |
+| Linux (Debian, Ubuntu, Raspberry Pi) | ✅ Full | Install script, works everywhere |
+| Omada (TP-Link) | ⚠️ Limited | WireGuard client mode may not forward traffic to LAN — see note below |
+| Most consumer routers | ⚠️ Varies | Depends on whether the firmware supports WireGuard LAN forwarding |
+
+<Warning>
+**Router requirement:** the gateway tunnel requires your router to support **WireGuard LAN forwarding** — the ability to forward traffic arriving through the WireGuard tunnel to devices on the local network. Some firmware (including certain Omada versions) implements WireGuard in client-only mode and cannot forward tunnel traffic to the LAN. If your router falls into this category, place a dedicated Linux gateway (Raspberry Pi, mini PC, or VM) on the LAN and run WireGuard there instead — it takes about 10 minutes and works reliably.
+</Warning>
 
 ## Setup
 
