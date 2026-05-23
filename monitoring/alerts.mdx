@@ -19,12 +19,11 @@ ProxyLink sends a POST request with a JSON body to your URL:
 
 ```json
 {
-  "event": "down",
-  "link_id": 42,
-  "link_label": "Hotel Anna — NVR",
-  "consecutive_failures": 3,
-  "timestamp": "2026-05-11T20:00:00Z"
+  "status": "down",
+  "label": "Hotel Anna — NVR",
+  "target": "192.168.20.10:80",
+  "time": "2026-05-11 20:00:00 EEST"
 }
 ```
 
-Events: `down`, `up`
+`status` is `"down"` or `"up"`.
