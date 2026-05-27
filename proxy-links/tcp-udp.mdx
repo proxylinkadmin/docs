@@ -21,7 +21,7 @@ tcp.proxylink.dev:17050
 
 ## UDP tunnels (VoIP / SIP)
 
-UDP links are used for VoIP — SIP registration, RTP media streams. ProxyLink includes a built-in SIP ALG and RTP relay.
+UDP links are used for VoIP — SIP registration, RTP media streams. UDP tunnel links pass SIP and RTP traffic transparently.
 
 **Example — PBX behind a router tunnel:**
 - SIP port: `192.168.40.10:5060` → exposed as UDP on ProxyLink
