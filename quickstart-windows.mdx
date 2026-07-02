@@ -15,7 +15,7 @@ The Windows one-liner installs WireGuard and UltraVNC silently, registers the PC
 
 <Steps>
   <Step title="Create a Windows PC tunnel">
-    In ProxyLink, go to **Tunnels** → **+ Add Windows PC**. ProxyLink generates a one-time deploy command.
+    In ProxyLink, go to **Devices** → **+ Add** → **Windows PC**. ProxyLink generates a one-time deploy command.
   </Step>
   <Step title="Run the command on the target PC">
     Open PowerShell as Administrator and run the generated command:
@@ -25,7 +25,7 @@ The Windows one-liner installs WireGuard and UltraVNC silently, registers the PC
     The script installs WireGuard and UltraVNC silently. Takes about 30 seconds.
   </Step>
   <Step title="PC appears in your dashboard">
-    Once the WireGuard tunnel connects, the PC registers its hostname automatically. You'll see it online in your Tunnels list.
+    Once the WireGuard tunnel connects, the PC registers its hostname automatically. You'll see it online in your Devices page.
   </Step>
   <Step title="One manual step — enable VNC access">
     After the script finishes, right-click the UltraVNC icon in the system tray → **Properties** → **Security** tab → uncheck **"VNC Password required"** → click **Apply**, then **OK**.
@@ -33,7 +33,7 @@ The Windows one-liner installs WireGuard and UltraVNC silently, registers the PC
     The script prints this instruction as a reminder. This step is required because UltraVNC ignores the INI setting for auth on fresh installs.
   </Step>
   <Step title="Connect via browser">
-    Click **VNC** or **RDP** next to the device in your Proxy Links list. A browser terminal opens — no client software needed.
+    Click **VNC** or **RDP** next to the device in your Devices page. A browser terminal opens — no client software needed.
   </Step>
 </Steps>
 
@@ -55,7 +55,7 @@ The command works with any RMM tool that can run PowerShell:
 irm https://app.proxylink.dev/deploy/{token} | iex
 ```
 
-Each token is single-use and expires after 30 minutes. Generate a new one from the Tunnels page for each machine.
+Each token is single-use and expires after 30 minutes. Generate a new one from the Devices page for each machine.
 
 ## After deploy
 

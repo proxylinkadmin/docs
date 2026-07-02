@@ -23,7 +23,7 @@ The router establishes a WireGuard tunnel to ProxyLink. ProxyLink routes traffic
 
 <Steps>
   <Step title="Create a Router / Gateway tunnel">
-    In ProxyLink, go to **Tunnels** → **+ New Tunnel** → select **Router / Gateway**. Enter a name and your LAN subnet (e.g. `192.168.1.0/24`).
+    In ProxyLink, go to **Devices** → **+ Add** → **Router / LAN site** → select **Router / Gateway**. Enter a name and your LAN subnet (e.g. `192.168.1.0/24`).
   </Step>
   <Step title="Download and install the config">
     Click **Activate & Download**. Select your platform — MikroTik, pfSense/OpenWRT, or Linux. ProxyLink generates the WireGuard config and install script.
@@ -47,7 +47,7 @@ The router establishes a WireGuard tunnel to ProxyLink. ProxyLink routes traffic
     </Tabs>
   </Step>
   <Step title="Add proxy links for each device">
-    Once the tunnel is connected, go to **Proxy Links** → **+ Create Proxy Link**. Enter the device's LAN IP and port. Repeat for each service.
+    Once the tunnel is connected, go to your device on the **Devices** page → **+ Add service**. Enter the device's LAN IP and port. Repeat for each service.
   </Step>
 </Steps>
 

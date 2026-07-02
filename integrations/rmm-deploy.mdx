@@ -11,7 +11,7 @@ The ProxyLink Windows deploy script is designed for mass deployment via RMM tool
 irm https://app.proxylink.dev/deploy/{token} | iex
 ```
 
-Each token is single-use and expires after 30 minutes. Generate one per machine from **Tunnels** → **+ Add Windows PC**.
+Each token is single-use and expires after 30 minutes. Generate one per machine from **Devices** → **+ Add** → **Windows PC**.
 
 ## NinjaRMM
 
@@ -31,7 +31,7 @@ Use Group Policy to run the command as a startup script (Computer Configuration 
 
 ## Token management
 
-Generate a separate token for each machine, or generate a batch and script the deployment. Tokens can be pre-generated from the Tunnels page — but generate them close to deployment time, as each token expires 30 minutes after creation.
+Generate a separate token for each machine, or generate a batch and script the deployment. Tokens can be pre-generated from the Devices page — but generate them close to deployment time, as each token expires 30 minutes after creation.
 
 ## Silent install
 
