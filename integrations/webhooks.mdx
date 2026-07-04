@@ -31,11 +31,10 @@ ProxyLink sends a POST request to your webhook URL when a monitored service chan
 
 ## Network automation trigger
 
-Trigger a network automation from an external system (NinjaRMM, Zabbix, Grafana) by calling the automation's webhook URL:
+Trigger a network automation from an external system (NinjaRMM, Zabbix, Grafana) by calling the automation's unique webhook URL. The secret in the URL is the authentication — no headers or tokens needed. Copy the full URL from the automation's detail page:
 
 ```bash
-curl -X POST https://app.proxylink.dev/automations/{id}/trigger \
-  -H "Authorization: Bearer {token}"
+curl -X POST https://app.proxylink.dev/automations/trigger/{secret}
 ```
 
 The automation runs immediately and returns the output.

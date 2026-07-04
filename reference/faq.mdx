@@ -8,7 +8,7 @@ title: Frequently Asked Questions
   </Accordion>
 
   <Accordion title="Do I need to install software on every device?">
-    No — for network devices, cameras, NVRs, PBX systems, switches, and anything else accessible on the LAN. One WireGuard tunnel on the router is all you need. The only exception is Windows PCs, which require a one-time silent deploy script for RDP/VNC access.
+    No — for network devices, cameras, NVRs, PBX systems, switches, and anything else accessible on the LAN. One WireGuard tunnel on the router is all you need. The only exception is Windows PCs: for VNC or the ProxyLink agent they use a one-time deploy script. (RDP alone works through a gateway tunnel with no script at all.)
   </Accordion>
 
   <Accordion title="How is this different from TeamViewer or AnyDesk?">
@@ -16,7 +16,7 @@ title: Frequently Asked Questions
   </Accordion>
 
   <Accordion title="Where is ProxyLink hosted?">
-    Hetzner Germany (Falkenstein). EU infrastructure, EU data protection law applies. Traffic does not route through third-party CDNs or relay servers.
+    Hetzner Germany (Falkenstein). EU infrastructure, EU data protection law applies. Session relay and storage run entirely on our own server — there is no third-party remote-access relay network. Web traffic (dashboard, browser sessions, HTTP proxy links) is fronted by Cloudflare's edge for TLS and WAF; WireGuard tunnels and TCP links connect directly to the EU server.
   </Accordion>
 
   <Accordion title="What protocol does ProxyLink use?">

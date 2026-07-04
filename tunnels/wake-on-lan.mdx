@@ -20,3 +20,4 @@ Click the **Wake** button. ProxyLink sends a UDP broadcast magic packet through 
 - Wake-on-LAN enabled in the device's BIOS
 - The network adapter configured to accept WoL packets
 - The device connected via Ethernet (WoL over WiFi is rarely supported)
+- The site gateway must forward directed broadcasts: Linux gateways deployed after July 2026 are configured automatically; older Linux gateways need `sysctl -w net.ipv4.conf.all.bc_forwarding=1` (persist it in `/etc/sysctl.d/`). Not currently supported when the tunnel terminates directly on a MikroTik router.
