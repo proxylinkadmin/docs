@@ -31,7 +31,7 @@ All traffic to `app.proxylink.dev` passes through Cloudflare with Full Strict SS
 
 ## EU infrastructure
 
-Hosted on Hetzner Germany. No third-party routing. Traffic stays on EU infrastructure end to end.
+Hosted on Hetzner Germany. Session relay and storage run entirely on our own EU server — there is no third-party remote-access relay network. WireGuard tunnels and TCP links connect directly to the German endpoint; web traffic (dashboard, browser sessions, HTTP proxy links) is fronted by Cloudflare's edge for TLS and WAF protection.
 
 ## Responsible disclosure
 

@@ -37,7 +37,7 @@ Under NIS2, your clients' risk assessments must account for their supply chain �
 - EU-hosted infrastructure (Hetzner Germany)
 - Open-source WireGuard protocol — no proprietary black-box routing
 - Full session audit trail with recordings
-- No third-party routing — traffic stays on EU infrastructure end to end
+- No third-party remote-access relay network — session relay and storage run on our own EU server (WireGuard tunnels and TCP links connect directly to it); web traffic is fronted by Cloudflare's edge for TLS and WAF
 
 <Note>
 NIS2 Article 21 requires "appropriate measures" for privileged access. ProxyLink's audit log and session recording are designed to satisfy this requirement. Consult your legal advisor for your specific obligations.
