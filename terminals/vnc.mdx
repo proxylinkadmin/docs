@@ -26,4 +26,4 @@ ProxyLink supports Apple Remote Desktop authentication (security type 30). When 
 
 ## VNC security
 
-VNC ports are only accessible through the WireGuard tunnel — they are never exposed to the internet. Access is secured by the ProxyLink login and the WireGuard tunnel. Note: after deployment, one manual step per machine is currently required — right-click the UltraVNC tray icon → Properties → Security → uncheck "VNC Password required" (the installer cannot automate this reliably). See the Windows quickstart for details.
+VNC ports are only accessible through the WireGuard tunnel — they are never exposed to the internet. Access is secured by the ProxyLink login, the WireGuard tunnel, and a per-device VNC password that the deploy sets automatically. No manual step is needed — VNC works in the browser as soon as the machine connects.

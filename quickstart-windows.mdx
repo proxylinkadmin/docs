@@ -27,10 +27,8 @@ The Windows one-liner installs WireGuard and UltraVNC silently, registers the PC
   <Step title="PC appears in your dashboard">
     Once the WireGuard tunnel connects, the PC registers its hostname automatically. You'll see it online in your Devices page.
   </Step>
-  <Step title="One manual step — enable VNC access">
-    After the script finishes, right-click the UltraVNC icon in the system tray → **Properties** → **Security** tab → uncheck **"VNC Password required"** → click **Apply**, then **OK**.
-
-    The script prints this instruction as a reminder. This step is required because UltraVNC ignores the INI setting for auth on fresh installs.
+  <Step title="VNC is secured automatically">
+    The deploy sets a per-device VNC password and ProxyLink connects with it for you — no manual configuration on the machine. VNC is ready as soon as the PC comes online.
   </Step>
   <Step title="Connect via browser">
     Click **VNC** or **RDP** next to the device in your Devices page. A browser terminal opens — no client software needed.

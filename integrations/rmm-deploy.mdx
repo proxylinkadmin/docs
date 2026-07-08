@@ -3,7 +3,7 @@ title: RMM Deployment
 description: Deploy ProxyLink to Windows endpoints at scale via NinjaRMM, Datto, ConnectWise Automate, or GPO.
 ---
 
-The ProxyLink Windows deploy script is designed for mass deployment via RMM tools. One command per machine. For fully unattended rollouts use the **RDP-only deploy option** — the default (VNC-enabled) deploy needs one manual tray-icon step per machine afterwards (see the Windows quickstart).
+The ProxyLink Windows deploy script is designed for mass deployment via RMM tools. One command per machine, fully unattended. The deploy sets a per-device VNC password automatically, so both VNC-enabled and RDP-only rollouts need no manual step on the machine.
 
 ## The deploy command
 
@@ -35,4 +35,4 @@ Generate a separate token for each machine, or generate a batch and script the d
 
 ## Silent install
 
-The script runs without windows, prompts, or UAC dialogs (when run as SYSTEM or elevated PowerShell). RDP-only deployments are safe for unattended overnight rollout; VNC-enabled deployments additionally need the one-time tray-icon step on each machine before VNC works.
+The script runs without windows, prompts, or UAC dialogs (when run as SYSTEM or elevated PowerShell). Both RDP-only and VNC-enabled deployments are safe for unattended overnight rollout — VNC comes up password-protected automatically, with nothing to configure on the machine.
