@@ -11,6 +11,10 @@ ProxyLink includes a browser RDP terminal powered by Apache Guacamole — no RDP
 2. The RDP session opens in the browser
 3. Enter Windows credentials if prompted
 
+<Note>
+RDP authenticates against the PC's own Windows user account, so that account **must have a password set** — Windows blocks Remote Desktop (and all network logons) for blank-password accounts. If RDP won't connect to a freshly deployed machine, set a password on its Windows user and try again. This is Windows behavior, not a ProxyLink setting — unlike VNC, whose per-device password ProxyLink sets automatically.
+</Note>
+
 ## Features
 
 - Full-screen mode
