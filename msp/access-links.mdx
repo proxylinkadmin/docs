@@ -15,12 +15,12 @@ Access links let you share access to a specific device with anyone — no ProxyL
 2. Click **Share** → **Create Access Link**
 3. Optionally set:
    - **Expiry date** — the link stops working after this date
-   - **Stored credentials** — username/password pre-filled so the recipient connects automatically
+   - **Stored credentials** — username/password pre-filled so the recipient connects automatically (RDP/SSH/HTTP). A **VNC** share needs nothing here: it authenticates with the device's own VNC password automatically, and the form does not ask for a VNC username.
 4. Copy the generated URL and send it to the recipient
 
 ## How it works
 
-The recipient opens the URL in a browser. If stored credentials are configured, the session opens immediately with no login prompt. If not, they see a connection dialog to enter credentials.
+The recipient opens the URL in a browser. If stored credentials are configured, the session opens immediately with no login prompt. If not, they see a connection dialog to enter credentials. A VNC share always connects with the device's VNC password — so rotating that password heals every existing share instead of breaking it.
 
 The link works for SSH, RDP, VNC, and HTTP/HTTPS proxy links — any type of proxy link can be shared.
 

@@ -29,7 +29,7 @@ Results appear in the dashboard within 60 seconds.
 
 ## Update config
 
-When you rotate WireGuard keys or update settings, click **Update Config** on the tunnel row. This pushes the new config to the PC automatically via the Agent — no manual steps.
+To push a settings change (VNC password, config), click **Update Config** on the tunnel row. It keeps the device's existing WireGuard key, so the tunnel stays up — the change is delivered via the Agent with no manual steps and no dropped connection. To issue a new key, use **Re-key this device** in that dialog; for a device that is offline but whose Agent is still checking in, use **Fix WireGuard**, which re-keys only once the Agent picks it up.
 
 ## Uninstall
 

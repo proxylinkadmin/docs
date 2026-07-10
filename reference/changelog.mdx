@@ -9,6 +9,13 @@ description: Recent updates to ProxyLink.
 - The Windows deploy now sets a per-device VNC password automatically, and the browser connects with it for you — no manual step on the machine.
 - The same password secures both the browser VNC screen and the VNC file manager.
 
+**Updates no longer drop the tunnel**
+- Pushed and manual **Update Config** now keep the device's existing WireGuard key. The tunnel stays up through an update — you can even run a manual update from inside a ProxyLink session, no third-party remote tool needed.
+- New **Re-key this device** action for issuing a fresh key when you need one, and **Fix WireGuard** to repair a device that is offline but still checking in — it re-keys only once the Agent picks the job up, so it never strands a device.
+
+**VNC access links use the device password**
+- A shared VNC access link now authenticates with the device's own VNC password. Rotating a device's password heals existing shares instead of breaking them, and the share form no longer asks for a VNC username.
+
 ## May 2026
 
 **Early Access launch**
