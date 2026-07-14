@@ -5,6 +5,10 @@ description: Recent updates to ProxyLink.
 
 ## July 2026
 
+**Custom domains on your own domain, with automatic HTTPS**
+- Attach a proxy link to your own domain (a specific subdomain like `nas.yourcompany.com`, or a wildcard like `*.preview.yourcompany.com`). Point a CNAME at `cname.proxylink.dev` plus a `_proxylink-verify` TXT record to prove ownership, and ProxyLink issues and renews the HTTPS certificate for you.
+- No paid Cloudflare plan required on your side, it works on any DNS provider on a free plan. Each link shows a certificate status badge (Provisioning, Secured, Cert error) while it comes online.
+
 **Automatic VNC passwords**
 - The Windows deploy now sets a per-device VNC password automatically, and the browser connects with it for you — no manual step on the machine.
 - The same password secures both the browser VNC screen and the VNC file manager.

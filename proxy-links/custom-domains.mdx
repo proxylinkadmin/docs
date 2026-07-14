@@ -1,36 +1,74 @@
 ---
 title: Custom Domains
-description: Use your own domain for proxy links instead of the default proxy.proxylink.dev subdomain.
+description: Serve proxy links on your own domain with automatic HTTPS, no port forwarding and no paid Cloudflare required.
 ---
 
-Attach a custom domain to a proxy link to serve it at your own URL.
+Attach a custom domain so a proxy link is served at your own branded URL (e.g. `nas.yourcompany.com`) instead of the default `*.proxy.proxylink.dev`. ProxyLink issues and renews the HTTPS certificate for you automatically, you never need a paid Cloudflare plan or any certificate setup of your own.
+
+## Choose a domain type
+
+<CardGroup cols={2}>
+  <Card title="Specific subdomain" icon="link">
+    One exact hostname for one link, e.g. `nas.yourcompany.com`. Best for a single fixed service.
+  </Card>
+  <Card title="Wildcard domain" icon="asterisk">
+    Many links under a preview subdomain, e.g. `abc123.preview.yourcompany.com`. Best when you expose many devices.
+  </Card>
+</CardGroup>
+
+Both work on **any DNS provider on a free plan**, including free Cloudflare. We handle the certificate on our side.
 
 ## Setup
 
 <Steps>
-  <Step title="Add a domain in ProxyLink">
-    Go to **Domains** → **+ Add Domain**. Enter your domain (e.g. `remote.yourdomain.com`).
+  <Step title="Add the domain in ProxyLink">
+    Go to **Domains → + Add Domain**, choose **Specific subdomain** or **Wildcard domain**, and enter your domain. Open the domain's setup page, it shows the exact DNS records to add, including your unique verification token.
   </Step>
-  <Step title="Add a CNAME record">
-    In your DNS provider, add a CNAME record:
+  <Step title="Add the CNAME record (routes traffic to us)">
+    In your DNS provider, add a CNAME record pointing at the target shown on the setup page:
     ```
-    remote.yourdomain.com → proxy.proxylink.dev
+    # Specific subdomain
+    nas.yourcompany.com            CNAME   cname.proxylink.dev
+
+    # Wildcard domain
+    *.preview.yourcompany.com      CNAME   cname.proxylink.dev
     ```
+    <Note>On Cloudflare, set this record to **DNS only** (grey cloud), not proxied. We terminate HTTPS for you.</Note>
   </Step>
-  <Step title="Attach to a proxy link">
-    Edit the proxy link and select your custom domain from the **Attach to domain** dropdown.
+  <Step title="Add the TXT record (proves you own the domain)">
+    Add the ownership-verification TXT record shown on the setup page:
+    ```
+    _proxylink-verify.nas.yourcompany.com        TXT   <verification-token>
+    ```
+    (For a wildcard domain the name is `_proxylink-verify.preview.yourcompany.com`.) This is required, without it the domain stays unverified.
+  </Step>
+  <Step title="Verify">
+    Back on the domain's setup page, click **Verify Now**. Once your records have propagated (usually a few minutes, occasionally up to 24 hours) the domain flips to **Verified**.
+  </Step>
+  <Step title="Attach it to a proxy link">
+    Create or edit a proxy link and select your domain from the **Attach to domain** dropdown. A wildcard domain gives each link its own `random.preview.yourcompany.com` hostname; a specific subdomain backs exactly one link.
   </Step>
 </Steps>
 
-## SSL certificates
+## HTTPS certificates
 
-ProxyLink automatically provisions and renews Let's Encrypt certificates for custom domains. No manual certificate management needed.
+ProxyLink issues and renews the HTTPS certificate for every custom-domain link **automatically**, there is nothing to install or manage, and no paid Cloudflare plan is needed on your side.
+
+Issuance is quick but not instant. Right after you create a link, its card shows a certificate status:
+
+| Badge | Meaning |
+|-------|---------|
+| 🟡 **Provisioning…** | The certificate is being issued (usually under a minute once your DNS is live). |
+| 🔒 **Secured** | The certificate is active, the link is fully live over HTTPS. |
+| ⚠️ **Cert error** | Issuance failed, re-check the CNAME/TXT records on your domain. |
 
 ## Plan limits
 
 | Plan | Custom domains |
 |------|---------------|
-| Free | — |
+| Free | None |
 | Developer | 3 |
 | MSP | 10 |
 | Custom | Unlimited |
+
+<Note>You can mix types on the same root domain, e.g. a **specific** `nas.yourcompany.com` and a **wildcard** `*.preview.yourcompany.com` can both exist. Each counts as one domain against your plan limit and is verified independently.</Note>
