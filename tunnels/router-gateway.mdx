@@ -94,7 +94,11 @@ Do not add `srcnat masquerade` rules for ProxyLink traffic. Masquerade breaks re
 
 ## Wake-on-LAN
 
-Set a MAC address on any proxy link and a **Wake** button appears. ProxyLink sends the magic packet through the tunnel to wake the device remotely — no broadcast relay needed on-site.
+Set a MAC address on any proxy link and a **Wake** button appears. ProxyLink sends the magic packet through the tunnel to wake the device remotely.
+
+<Warning>
+Wake-on-LAN is **not currently supported when the tunnel terminates directly on a MikroTik router**, and Linux gateways deployed before late June 2026 need `bc_forwarding=1` enabled. See [Wake-on-LAN](/tunnels/wake-on-lan) for the per-platform requirements.
+</Warning>
 
 ## LAN scan
 

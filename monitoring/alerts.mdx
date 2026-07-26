@@ -10,8 +10,16 @@ description: Configure where ProxyLink sends monitoring alerts — email, Slack,
 
 ## Microsoft Teams
 
-1. Add an Incoming Webhook connector to a Teams channel
-2. Paste the webhook URL in the monitoring settings
+Microsoft **retired the Office 365 Incoming Webhook connector** — use a **Workflow** instead:
+
+1. In Teams, open the target channel → **⋯** → **Workflows**
+2. Choose the **"Post to a channel when a webhook request is received"** template
+3. Finish the setup and copy the generated URL (it ends in `logic.azure.com`)
+4. Paste that URL in the proxy link's monitoring settings
+
+<Note>
+The old connector-based webhooks (`*.webhook.office.com`) stopped delivering when Microsoft retired connectors. If your Teams alerts went silent, recreate the webhook via **Workflows** as above and update the URL.
+</Note>
 
 ## Custom webhook
 

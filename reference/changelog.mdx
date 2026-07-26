@@ -20,6 +20,21 @@ description: Recent updates to ProxyLink.
 **VNC access links use the device password**
 - A shared VNC access link now authenticates with the device's own VNC password. Rotating a device's password heals existing shares instead of breaking them, and the share form no longer asks for a VNC username.
 
+**In-session file transfer for RDP and VNC**
+- Upload, download, and browse files during an RDP session with the **📁 Files** button in the toolbar — no drive mapping or separate share needed.
+- Browser VNC sessions to ProxyLink-deployed Windows PCs gain a full file manager (browse, upload, download, create folders, rename, delete).
+
+**Team roles and per-device access scoping**
+- Assign team members the **owner**, **engineer** (assigned client groups), or **employee** (assigned devices only) role, so each person only sees what they should.
+- A **Full access (connect-only)** toggle lets you grant a member the ability to connect to a device without exposing its configuration.
+
+**Proxy links now work with modern web apps**
+- Fixed a redirect loop that affected frameworks with mandatory trailing slashes (Django, DRF), and a case where proxied form/API POSTs could fail — every proxied web app benefits automatically.
+- New **"Preserve original domain"** toggle per link: keep appliance mode (default, for device web UIs like Synology/UniFi/pfSense) or switch to app mode for modern web apps whose API calls check the public domain.
+
+**Per-VLAN isolation for overlapping VLANs**
+- On gateways running the management agent (MikroTik and Linux), **every** VLAN — the primary LAN and each additional VLAN — now gets its own unique assigned range and is NETMAP-isolated. Two clients that share an *additional* VLAN subnet (not just the primary) stay fully distinct, with no renumbering on either site.
+
 ## May 2026
 
 **Early Access launch**

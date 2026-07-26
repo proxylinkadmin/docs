@@ -27,3 +27,7 @@ Create proxy links for the PBX admin panel (`192.168.40.1:80`), NVR web UI (`192
 ## Router requirements
 
 The router must route traffic between the WireGuard interface and all VLANs. For MikroTik, add forward chain rules for each VLAN interface to the WireGuard interface.
+
+<Note>
+On gateways running the ProxyLink **management agent** (offered, on by default, on every MikroTik and Linux gateway setup path), each VLAN you add in the dashboard is automatically assigned its own unique range and gets its per-VLAN NETMAP isolation rule pushed to the gateway — no manual NETMAP setup, and overlapping VLANs from different clients stay isolated. Agentless routers still route additional VLANs directly, and a VLAN that overlaps another account's subnet is rejected at save time so you can give it a unique range.
+</Note>

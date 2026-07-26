@@ -19,6 +19,10 @@ tcp.proxylink.dev:17050
 - ProxyLink URL: `tcp.proxylink.dev:17050`
 - Connect: `ssh admin@tcp.proxylink.dev -p 17050`
 
+<Note>
+**RDP (3389) and VNC (5900) are intentionally not exposed as raw TCP links.** Those protocols are served through ProxyLink's authenticated browser terminals instead, so raw TCP can't bypass the ProxyLink login gate. Use the in-browser [RDP](/terminals/rdp) and [VNC](/terminals/vnc) instead of a TCP link for those ports.
+</Note>
+
 ## UDP tunnels (VoIP / SIP)
 
 UDP links are used for VoIP — SIP registration, RTP media streams. UDP tunnel links pass SIP and RTP traffic transparently.
