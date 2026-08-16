@@ -3,6 +3,19 @@ title: Changelog
 description: Recent updates to ProxyLink.
 ---
 
+## August 2026
+
+**Share devices with another company**
+- Give a partner MSP, a contractor, or a client's own IT staff access to a whole team, one client site, or a single device, without adding them to your team. Optional expiry, pending until they accept, and either side can end it.
+- Share with one named person, or with their whole company so their owner can assign the device to their own engineers under their own roles.
+- Sharing with an address that has no ProxyLink account sends a 7 day invitation instead. It is bound to that address and requires a confirmed email before it can be accepted.
+- Revoking or expiring a share **disconnects sessions that are already open**, not just the next connection. Every connect is re-checked against the current state of the share.
+- The other side can open the device but cannot edit it, add services, push commands, create access links for it, share it onward, or reach it over the VPN.
+- Find it under **More → Sharing**. See [Sharing Devices With Another Company](/msp/device-sharing).
+
+**Warning when a new service has nothing behind it**
+- Add a service to a device and, if its tunnel is connected, ProxyLink now checks whether anything actually answers at that address. If nothing does, it says so instead of leaving you with a link that silently times out. The service is still created either way.
+
 ## July 2026
 
 **Custom domains on your own domain, with automatic HTTPS**

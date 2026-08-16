@@ -79,6 +79,7 @@
       "pages": [
         "msp/teams",
         "msp/client-groups",
+        "msp/device-sharing",
         "msp/access-links",
         "msp/noc-dashboard",
         "msp/asset-inventory",

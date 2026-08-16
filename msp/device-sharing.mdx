@@ -1,0 +1,84 @@
+---
+title: Sharing Devices With Another Company
+description: Give a partner MSP, a contractor, or a client's own IT staff access to your devices, scoped and revocable, without giving them an account on your team.
+---
+
+Device sharing lets you hand another company access to devices you manage, without adding them to your team and without giving up control. A partner MSP covering your out of hours, a specialist contractor who only needs one PBX, a client's internal IT who want to reach their own server: all of them get exactly what you choose, for as long as you choose.
+
+This is different from [access links](/msp/access-links). An access link is a URL for one device, usable by anyone who holds it. A share is a relationship between two ProxyLink accounts, and it can be narrowed, expired, and revoked.
+
+## What you can share
+
+| Scope | What the other side gets |
+|---|---|
+| **A whole team** | Every device in that team, including devices you add later |
+| **A client site** | Every device in that client group |
+| **A single device** | That one device only |
+
+## Who you share with
+
+When you create a share you choose between two things, and the difference matters:
+
+- **Just this person.** The share belongs to that individual. Nobody else at their company can use it, and they cannot pass it to their colleagues.
+- **Their whole company.** The share goes to their team. Their owner or manager can then assign the device to their own engineers, in their own client groups, exactly as they do with their own kit.
+
+If you are sharing with a partner MSP who will put their own engineers on it, choose their whole company. If you are sharing with one named contractor, choose just this person.
+
+## Sharing with someone who has no account
+
+You can share with any email address. If there is no ProxyLink account on it, we send an invitation instead of creating the share:
+
+- The invitation is valid for **7 days**
+- It is bound to the address it was sent to. Forwarding it to somebody else does not work
+- The recipient must **confirm their email address** before they can accept. A matching address is not enough on its own, because anyone can type an address at signup
+- Nothing is shared until they accept
+- You can withdraw the invitation at any time before it is used
+
+Your Sharing page lists outstanding invitations alongside real shares, so a mistyped address is visible and withdrawable rather than silently pending.
+
+## Accepting
+
+A share does not go live when you create it. It stays **pending** until the other side accepts it, and their Sharing page shows who sent it, what it covers, and the sender's real account address. That address is worth reading: a team name is free text that anyone can choose, and accepting a share puts somebody else's machine on your screen.
+
+Once accepted, shared devices appear on the recipient's Devices page under **Shared with you**, badged with the company that shared them, kept separate from their own devices.
+
+## What the other side can and cannot do
+
+They can open the device: RDP, VNC, SSH, and file transfer, exactly as you can.
+
+They cannot:
+
+- **Edit, rename or delete the device**, or change its services
+- **Add or remove services** on it
+- **Push commands** to it through the ProxyLink agent
+- **Create access links** for it. Minting a public URL for a device is reserved for the company that owns it
+- **Share it onward.** Creating a share requires being an owner or manager of the team that owns the device, and someone you shared with is never a member of that team, so the path does not exist for them
+- **Reach it over the VPN.** A share grants access through ProxyLink only. It never places the other company inside your WireGuard network, and it never gives them an IP route to your client's LAN
+
+Your team also never appears in their Teams list. They are not members of it, and they cannot see or touch your engineers' accounts.
+
+## Narrowing it on their side
+
+When you share with a whole company, their owner or manager decides how much of it each of their people gets, using their own roles:
+
+- **Owner or manager** on their side: the whole share
+- **Engineer**: only the shared devices placed in a client group they are assigned to
+- **Employee**: only the specific shared devices assigned to them
+
+So a share sets a ceiling, and their own role model decides who reaches what underneath it. A new hire at their company does not automatically inherit your devices.
+
+## Expiry and revoking
+
+A share can carry an **expiry date**, which is the right default for contractor work and for cover arranged around a holiday.
+
+Either side can end it at any time. You revoke; they can hand it back.
+
+<Warning>
+Revoking or expiring a share **disconnects sessions that are already open**. It does not merely block the next connection. If someone is in an RDP session on a shared device when you revoke, that session ends.
+</Warning>
+
+Every connection is re-checked against the current state of the share at the moment it is made, so access that has been withdrawn cannot be used with a link or token obtained earlier.
+
+## Where to find it
+
+**More → Sharing**. The page shows two lists: what you have shared out, and what has been shared with you, along with any invitations still outstanding.
