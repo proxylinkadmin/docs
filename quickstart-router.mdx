@@ -1,13 +1,13 @@
 ---
-title: Router / Gateway — Full LAN Access
+title: Router / Gateway - Full LAN Access
 description: One WireGuard tunnel on a router gives ProxyLink access to every device on the LAN and all VLANs. No software on individual devices.
 ---
 
-This is ProxyLink's most powerful setup. One tunnel on a router or Linux gateway gives you access to every device on the network — cameras, NVRs, PBX systems, printers, switches — without installing anything on them.
+This is ProxyLink's most powerful setup. One tunnel on a router or Linux gateway gives you access to every device on the network - cameras, NVRs, PBX systems, printers, switches - without installing anything on them.
 
 ## How it works
 
-The router establishes a WireGuard tunnel to ProxyLink. ProxyLink routes traffic through that tunnel to any IP on the router's LAN. From the engineer's perspective, they click a device in the browser and they're in — regardless of what the device is.
+The router establishes a WireGuard tunnel to ProxyLink. ProxyLink routes traffic through that tunnel to any IP on the router's LAN. From the engineer's perspective, they click a device in the browser and they're in - regardless of what the device is.
 
 ## Supported platforms
 
@@ -26,7 +26,7 @@ The router establishes a WireGuard tunnel to ProxyLink. ProxyLink routes traffic
     In ProxyLink, go to **Devices** → **+ Add** → **Router / LAN site** → select **Router / Gateway**. Enter a name and your LAN subnet (e.g. `192.168.1.0/24`).
   </Step>
   <Step title="Download and install the config">
-    Click **Activate & Download**. Select your platform — MikroTik, pfSense/OpenWRT, or Linux. ProxyLink generates the WireGuard config and install script.
+    Click **Activate & Download**. Select your platform - MikroTik, pfSense/OpenWRT, or Linux. ProxyLink generates the WireGuard config and install script.
 
     <Tabs>
       <Tab title="MikroTik">
@@ -61,18 +61,18 @@ PBX VLAN:   192.168.40.0/24
 Camera VLAN: 192.168.20.0/24
 ```
 
-All three are reachable through the same tunnel — no additional configuration on the devices.
+All three are reachable through the same tunnel - no additional configuration on the devices.
 
 ## MikroTik auto-configuration
 
 ProxyLink can configure MikroTik routers automatically via SSH:
 
-1. Go to **Devices** → **+ Add** → **MikroTik — auto-configure**
+1. Go to **Devices** → **+ Add** → **MikroTik - auto-configure**
 2. Enter the router's IP, SSH credentials, and LAN interface name
 3. ProxyLink connects via SSH and applies the WireGuard config, firewall rules, and mangle rules in one step
 
 <Warning>
-Do not add srcnat masquerade rules in RouterOS for ProxyLink traffic — this breaks return routing. ProxyLink uses NETMAP (not masquerade) for overlapping subnet translation.
+Do not add srcnat masquerade rules in RouterOS for ProxyLink traffic - this breaks return routing. ProxyLink uses NETMAP (not masquerade) for overlapping subnet translation.
 </Warning>
 
 ## Required MikroTik firewall rules
@@ -86,7 +86,7 @@ If configuring manually, add these rules to RouterOS:
 # Allow return traffic
 /ip firewall filter add chain=forward action=accept connection-state=established,related in-interface=Local out-interface=proxylink
 
-# Mangle — exempt from load-balancing (add before load-balance rules)
+# Mangle - exempt from load-balancing (add before load-balance rules)
 /ip firewall mangle add chain=prerouting action=accept src-address=192.168.100.0/24 dst-address=10.100.0.0/16
 /ip firewall mangle add chain=prerouting action=accept src-address=10.100.0.0/16 dst-address=192.168.100.0/24
 ```

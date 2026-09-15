@@ -27,12 +27,12 @@ Create a Script under **Browse** → **Scripts** and run it against target agent
 
 ## GPO
 
-Use Group Policy to run the command as a startup script (Computer Configuration → Startup Scripts). Note that GPO startup scripts run in SYSTEM context — the command is designed for this.
+Use Group Policy to run the command as a startup script (Computer Configuration → Startup Scripts). Note that GPO startup scripts run in SYSTEM context - the command is designed for this.
 
 ## Token management
 
-Generate a separate token for each machine, or generate a batch and script the deployment. Tokens can be pre-generated from the Devices page — but generate them close to deployment time, as each token expires 30 minutes after creation.
+Generate a separate token for each machine, or generate a batch and script the deployment. Tokens can be pre-generated from the Devices page - but generate them close to deployment time, as each token expires 30 minutes after creation.
 
 ## Silent install
 
-The script runs without windows, prompts, or UAC dialogs (when run as SYSTEM or elevated PowerShell). Both RDP-only and VNC-enabled deployments are safe for unattended overnight rollout — VNC comes up password-protected automatically, with nothing to configure on the machine.
+The script runs without windows, prompts, or UAC dialogs (when run as SYSTEM or elevated PowerShell). Both RDP-only and VNC-enabled deployments are safe for unattended overnight rollout - VNC comes up password-protected automatically, with nothing to configure on the machine.

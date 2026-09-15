@@ -16,7 +16,7 @@ Every SSH, RDP, and VNC session is logged with:
 - Session duration
 - Link to session recording (if enabled)
 
-The audit log is **immutable** — entries cannot be edited or deleted. Export as CSV for client reports or regulatory submissions.
+The audit log is **immutable** - entries cannot be edited or deleted. Export as CSV for client reports or regulatory submissions.
 
 Access: **More** → **Audit Log**
 
@@ -32,12 +32,12 @@ The portal shows the audit log for that client's devices only. No other clients'
 
 ## NIS2 relevance
 
-Under NIS2, your clients' risk assessments must account for their supply chain — including the remote access tools their MSP uses. ProxyLink's compliance portal directly answers that requirement:
+Under NIS2, your clients' risk assessments must account for their supply chain - including the remote access tools their MSP uses. ProxyLink's compliance portal directly answers that requirement:
 
 - EU-hosted infrastructure (Hetzner Germany)
-- Open-source WireGuard protocol — no proprietary black-box routing
+- Open-source WireGuard protocol - no proprietary black-box routing
 - Full session audit trail with recordings
-- No third-party remote-access relay network — session relay and storage run on our own EU server (WireGuard tunnels and TCP links connect directly to it); web traffic is fronted by Cloudflare's edge for TLS and WAF
+- No third-party remote-access relay network - session relay and storage run on our own EU server (WireGuard tunnels and TCP links connect directly to it); web traffic is fronted by Cloudflare's edge for TLS and WAF
 
 <Note>
 NIS2 Article 21 requires "appropriate measures" for privileged access. ProxyLink's audit log and session recording are designed to satisfy this requirement. Consult your legal advisor for your specific obligations.

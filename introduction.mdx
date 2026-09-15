@@ -1,18 +1,18 @@
 ---
 title: What is ProxyLink?
-description: WireGuard-based remote access for MSPs and IT teams — browser RDP, VNC, and SSH to any device, without agents on network devices.
+description: WireGuard-based remote access for MSPs and IT teams - browser RDP, VNC, and SSH to any device, without agents on network devices.
 ---
 
-ProxyLink gives you browser-based access to every device on a client's network — Windows PCs, servers, web UIs, NVRs, PBX systems, IP cameras — through a single WireGuard tunnel on their router.
+ProxyLink gives you browser-based access to every device on a client's network - Windows PCs, servers, web UIs, NVRs, PBX systems, IP cameras - through a single WireGuard tunnel on their router.
 
 ## How it works
 
 <Steps>
   <Step title="Install one tunnel on the router">
-    Put a WireGuard peer on a MikroTik, pfSense, OpenWRT router, or any Linux gateway. That one tunnel covers the entire LAN and all VLANs — no software on individual devices.
+    Put a WireGuard peer on a MikroTik, pfSense, OpenWRT router, or any Linux gateway. That one tunnel covers the entire LAN and all VLANs - no software on individual devices.
   </Step>
   <Step title="Create proxy links for each service">
-    Expose any IP:port as a browser-accessible URL. Web UIs, SSH, RDP, VNC, TCP ports — anything.
+    Expose any IP:port as a browser-accessible URL. Web UIs, SSH, RDP, VNC, TCP ports - anything.
   </Step>
   <Step title="Access from any browser">
     Open a browser, click a device, and you're in. No VPN client, no agent on the target device.
@@ -23,22 +23,22 @@ ProxyLink gives you browser-based access to every device on a client's network �
 
 <CardGroup cols={2}>
   <Card title="No agent on network devices" icon="shield-check">
-    Cameras, NVRs, PBX systems, switches — anything reachable on the LAN is accessible with zero software on the device itself.
+    Cameras, NVRs, PBX systems, switches - anything reachable on the LAN is accessible with zero software on the device itself.
   </Card>
   <Card title="One tunnel, entire network" icon="network-wired">
-    A single WireGuard peer on a router gives access to every device across all VLANs — no per-device limit on a tunnel. The MSP plan includes 300 tunnels.
+    A single WireGuard peer on a router gives access to every device across all VLANs - no per-device limit on a tunnel. The MSP plan includes 300 tunnels.
   </Card>
   <Card title="Browser RDP, VNC, SSH" icon="display">
-    Full terminals in the browser — no client software needed on the engineer's machine either.
+    Full terminals in the browser - no client software needed on the engineer's machine either.
   </Card>
   <Card title="EU-hosted, open protocol" icon="building-eu">
-    Hosted on Hetzner Germany. WireGuard is open-source. Tunnel traffic connects directly to our EU server — no third-party remote-access relay network; the web layer is fronted by Cloudflare's edge for TLS and WAF.
+    Hosted on Hetzner Germany. WireGuard is open-source. Tunnel traffic connects directly to our EU server - no third-party remote-access relay network; the web layer is fronted by Cloudflare's edge for TLS and WAF.
   </Card>
 </CardGroup>
 
 ## Real-world example
 
-A hotel runs a MikroTik router with three VLANs — main LAN, PBX VLAN, and NVR/camera VLAN. One ProxyLink tunnel on the router gives the IT team browser access to:
+A hotel runs a MikroTik router with three VLANs - main LAN, PBX VLAN, and NVR/camera VLAN. One ProxyLink tunnel on the router gives the IT team browser access to:
 
 - Windows PCs via RDP
 - The PBX admin panel via browser

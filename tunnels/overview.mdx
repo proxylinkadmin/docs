@@ -1,9 +1,9 @@
 ---
 title: Tunnels Overview
-description: WireGuard tunnels are the foundation of ProxyLink — each tunnel is a VPN peer that gives ProxyLink access to a device or an entire network.
+description: WireGuard tunnels are the foundation of ProxyLink - each tunnel is a VPN peer that gives ProxyLink access to a device or an entire network.
 ---
 
-Every device or network in ProxyLink is represented by a **tunnel** — a WireGuard peer that connects back to ProxyLink's server. Proxy links, browser terminals, and monitoring all depend on an active tunnel.
+Every device or network in ProxyLink is represented by a **tunnel** - a WireGuard peer that connects back to ProxyLink's server. Proxy links, browser terminals, and monitoring all depend on an active tunnel.
 
 ## Tunnel types
 
@@ -28,12 +28,12 @@ Each tunnel gets a unique IP in the `10.100.0.0/16` range (up to 65,534 peers). 
 | Status | Meaning |
 |--------|---------|
 | **Online** | WireGuard handshake within the last 3 minutes |
-| **Offline** | No handshake — device unreachable or WireGuard stopped |
+| **Offline** | No handshake - device unreachable or WireGuard stopped |
 | **Pending activation** | Tunnel created but WireGuard not yet connected |
 
 ## Peer isolation
 
-Each user's tunnels are isolated from other users' tunnels at the iptables level using ipsets. Cross-tenant traffic is impossible — even if two users share the same VPN IP range, they cannot reach each other's devices.
+Each user's tunnels are isolated from other users' tunnels at the iptables level using ipsets. Cross-tenant traffic is impossible - even if two users share the same VPN IP range, they cannot reach each other's devices.
 
 ## Adding VLANs
 

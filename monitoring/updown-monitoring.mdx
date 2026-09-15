@@ -11,24 +11,24 @@ Edit a proxy link and toggle **Monitoring** on. Choose the check method:
 
 | Method | Use case |
 |--------|----------|
-| **TCP** | Any TCP service — checks if the port accepts connections |
+| **TCP** | Any TCP service - checks if the port accepts connections |
 | **ICMP (ping)** | Network devices that respond to ping |
 
 ## Alert channels
 
 Configure alert destinations on the proxy link:
 
-- **Email** — sent to your account email
-- **Slack** — paste a Slack webhook URL
-- **Microsoft Teams** — paste a Teams webhook URL
-- **Custom webhook** — any URL that accepts POST requests
+- **Email** - sent to your account email
+- **Slack** - paste a Slack webhook URL
+- **Microsoft Teams** - paste a Teams webhook URL
+- **Custom webhook** - any URL that accepts POST requests
 
 ## Alert format (webhook)
 
 ```json
 {
   "status": "down",
-  "label": "Hotel Anna — NVR",
+  "label": "Hotel Anna - NVR",
   "target": "192.168.20.10:80",
   "time": "2026-05-11 20:00:00 EEST"
 }

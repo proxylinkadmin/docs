@@ -12,7 +12,7 @@ ProxyLink sends a POST request to your webhook URL when a monitored service chan
 ```json
 {
   "status": "down",
-  "label": "Hotel Anna — NVR",
+  "label": "Hotel Anna - NVR",
   "target": "192.168.20.10:80",
   "time": "2026-05-11 20:00:00 EEST"
 }
@@ -23,7 +23,7 @@ ProxyLink sends a POST request to your webhook URL when a monitored service chan
 ```json
 {
   "status": "up",
-  "label": "Hotel Anna — NVR",
+  "label": "Hotel Anna - NVR",
   "target": "192.168.20.10:80",
   "time": "2026-05-11 20:07:00 EEST"
 }
@@ -31,7 +31,7 @@ ProxyLink sends a POST request to your webhook URL when a monitored service chan
 
 ## Network automation trigger
 
-Trigger a network automation from an external system (NinjaRMM, Zabbix, Grafana) by calling the automation's unique webhook URL. The secret in the URL is the authentication — no headers or tokens needed. Copy the full URL from the automation's detail page:
+Trigger a network automation from an external system (NinjaRMM, Zabbix, Grafana) by calling the automation's unique webhook URL. The secret in the URL is the authentication - no headers or tokens needed. Copy the full URL from the automation's detail page:
 
 ```bash
 curl -X POST https://app.proxylink.dev/automations/trigger/{secret}

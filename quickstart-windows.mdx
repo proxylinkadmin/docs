@@ -1,5 +1,5 @@
 ---
-title: Windows PC — 30 Second Deploy
+title: Windows PC - 30 Second Deploy
 description: Deploy ProxyLink to a Windows PC with one PowerShell command. WireGuard and UltraVNC installed silently.
 ---
 
@@ -28,10 +28,10 @@ The Windows one-liner installs WireGuard and UltraVNC silently, registers the PC
     Once the WireGuard tunnel connects, the PC registers its hostname automatically. You'll see it online in your Devices page.
   </Step>
   <Step title="VNC is secured automatically">
-    The deploy sets a per-device VNC password and ProxyLink connects with it for you — no manual configuration on the machine. VNC is ready as soon as the PC comes online.
+    The deploy sets a per-device VNC password and ProxyLink connects with it for you - no manual configuration on the machine. VNC is ready as soon as the PC comes online.
   </Step>
   <Step title="Connect via browser">
-    Click **VNC** or **RDP** next to the device in your Devices page. A browser terminal opens — no client software needed.
+    Click **VNC** or **RDP** next to the device in your Devices page. A browser terminal opens - no client software needed.
   </Step>
 </Steps>
 
@@ -42,7 +42,7 @@ The Windows one-liner installs WireGuard and UltraVNC silently, registers the PC
 | WireGuard | VPN tunnel back to ProxyLink |
 | UltraVNC | VNC server for browser access |
 | ProxyLink Agent | Polls every 60s for remote commands (push scripts, restart services) |
-| ProxyLink WireGuard Watchdog | Checks every 5 min if WireGuard service died — restarts it automatically. Prevents silent tunnel drops. |
+| ProxyLink WireGuard Watchdog | Checks every 5 min if WireGuard service died - restarts it automatically. Prevents silent tunnel drops. |
 
 ## Deploy via RMM
 
@@ -57,9 +57,9 @@ Each token is single-use and expires after 30 minutes. Generate a new one from t
 
 ## After deploy
 
-- VNC and RDP ports are **only accessible through the WireGuard tunnel** — not exposed to the internet
-- The ProxyLink Agent runs as a Windows scheduled task (SYSTEM account) — no window visible to users
-- To push a config change (VNC password, settings), use the **Update Config** button on the tunnel row — it keeps the device's existing WireGuard key, so the tunnel stays up and you can even run it from inside a ProxyLink session. To issue a brand-new key, use **Re-key this device** in that dialog; for a device that is down but whose Agent is still checking in, use **Fix WireGuard**.
+- VNC and RDP ports are **only accessible through the WireGuard tunnel** - not exposed to the internet
+- The ProxyLink Agent runs as a Windows scheduled task (SYSTEM account) - no window visible to users
+- To push a config change (VNC password, settings), use the **Update Config** button on the tunnel row - it keeps the device's existing WireGuard key, so the tunnel stays up and you can even run it from inside a ProxyLink session. To issue a brand-new key, use **Re-key this device** in that dialog; for a device that is down but whose Agent is still checking in, use **Fix WireGuard**.
 
 ## Supported Windows versions
 

@@ -3,10 +3,10 @@ title: Access Links
 description: Share device access with clients or colleagues without requiring a ProxyLink account.
 ---
 
-Access links let you share access to a specific device with anyone — no ProxyLink account required on the recipient's side. Useful for giving a client access to their own server, or sharing a device with a contractor.
+Access links let you share access to a specific device with anyone - no ProxyLink account required on the recipient's side. Useful for giving a client access to their own server, or sharing a device with a contractor.
 
 <Tip>
-**Video tutorial:** [Share Device Access Without Accounts](https://proxylink.dev/tutorials/share-device-access-without-accounts) — 70 seconds from Share click to the client's one-click live session.
+**Video tutorial:** [Share Device Access Without Accounts](https://proxylink.dev/tutorials/share-device-access-without-accounts) - 70 seconds from Share click to the client's one-click live session.
 </Tip>
 
 ## Create an access link
@@ -14,22 +14,22 @@ Access links let you share access to a specific device with anyone — no ProxyL
 1. Open the proxy link detail page for the device you want to share
 2. Click **Share** → **Create Access Link**
 3. Optionally set:
-   - **Expiry date** — the link stops working after this date
-   - **Stored credentials** — username/password pre-filled so the recipient connects automatically (RDP/SSH/HTTP). A **VNC** share needs nothing here: it authenticates with the device's own VNC password automatically, and the form does not ask for a VNC username.
+   - **Expiry date** - the link stops working after this date
+   - **Stored credentials** - username/password pre-filled so the recipient connects automatically (RDP/SSH/HTTP). A **VNC** share needs nothing here: it authenticates with the device's own VNC password automatically, and the form does not ask for a VNC username.
 4. Copy the generated URL and send it to the recipient
 
 ## How it works
 
-The recipient opens the URL in a browser. If stored credentials are configured, the session opens immediately with no login prompt. If not, they see a connection dialog to enter credentials. A VNC share always connects with the device's VNC password — so rotating that password heals every existing share instead of breaking it.
+The recipient opens the URL in a browser. If stored credentials are configured, the session opens immediately with no login prompt. If not, they see a connection dialog to enter credentials. A VNC share always connects with the device's VNC password - so rotating that password heals every existing share instead of breaking it.
 
-The link works for SSH, RDP, VNC, and HTTP/HTTPS proxy links — any type of proxy link can be shared.
+The link works for SSH, RDP, VNC, and HTTP/HTTPS proxy links - any type of proxy link can be shared.
 
 ## Security
 
-- **Single-device scope** — the recipient can only access the specific device the link was created for. They cannot navigate to other devices or see anything else in your ProxyLink account.
-- **Expiry** — set an expiry date for time-limited access (e.g. for a contractor working on-site for a week). After expiry, the link returns a 404.
-- **Revoke at any time** — delete the access link from the proxy link detail page to immediately cut off access.
-- **Audit log** — every session initiated via an access link is logged in the audit log with the access link identifier, timestamp, and source IP.
+- **Single-device scope** - the recipient can only access the specific device the link was created for. They cannot navigate to other devices or see anything else in your ProxyLink account.
+- **Expiry** - set an expiry date for time-limited access (e.g. for a contractor working on-site for a week). After expiry, the link returns a 404.
+- **Revoke at any time** - delete the access link from the proxy link detail page to immediately cut off access.
+- **Audit log** - every session initiated via an access link is logged in the audit log with the access link identifier, timestamp, and source IP.
 
 ## Use cases
 

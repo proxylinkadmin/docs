@@ -1,6 +1,6 @@
 ---
 title: Alert Channels
-description: Configure where ProxyLink sends monitoring alerts — email, Slack, Teams, or custom webhooks.
+description: Configure where ProxyLink sends monitoring alerts - email, Slack, Teams, or custom webhooks.
 ---
 
 ## Slack
@@ -10,7 +10,7 @@ description: Configure where ProxyLink sends monitoring alerts — email, Slack,
 
 ## Microsoft Teams
 
-Microsoft **retired the Office 365 Incoming Webhook connector** — use a **Workflow** instead:
+Microsoft **retired the Office 365 Incoming Webhook connector** - use a **Workflow** instead:
 
 1. In Teams, open the target channel → **⋯** → **Workflows**
 2. Choose the **"Post to a channel when a webhook request is received"** template
@@ -28,7 +28,7 @@ ProxyLink sends a POST request with a JSON body to your URL:
 ```json
 {
   "status": "down",
-  "label": "Hotel Anna — NVR",
+  "label": "Hotel Anna - NVR",
   "target": "192.168.20.10:80",
   "time": "2026-05-11 20:00:00 EEST"
 }

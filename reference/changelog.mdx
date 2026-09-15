@@ -23,18 +23,18 @@ description: Recent updates to ProxyLink.
 - No paid Cloudflare plan required on your side, it works on any DNS provider on a free plan. Each link shows a certificate status badge (Provisioning, Secured, Cert error) while it comes online.
 
 **Automatic VNC passwords**
-- The Windows deploy now sets a per-device VNC password automatically, and the browser connects with it for you — no manual step on the machine.
+- The Windows deploy now sets a per-device VNC password automatically, and the browser connects with it for you - no manual step on the machine.
 - The same password secures both the browser VNC screen and the VNC file manager.
 
 **Updates no longer drop the tunnel**
-- Pushed and manual **Update Config** now keep the device's existing WireGuard key. The tunnel stays up through an update — you can even run a manual update from inside a ProxyLink session, no third-party remote tool needed.
-- New **Re-key this device** action for issuing a fresh key when you need one, and **Fix WireGuard** to repair a device that is offline but still checking in — it re-keys only once the Agent picks the job up, so it never strands a device.
+- Pushed and manual **Update Config** now keep the device's existing WireGuard key. The tunnel stays up through an update - you can even run a manual update from inside a ProxyLink session, no third-party remote tool needed.
+- New **Re-key this device** action for issuing a fresh key when you need one, and **Fix WireGuard** to repair a device that is offline but still checking in - it re-keys only once the Agent picks the job up, so it never strands a device.
 
 **VNC access links use the device password**
 - A shared VNC access link now authenticates with the device's own VNC password. Rotating a device's password heals existing shares instead of breaking them, and the share form no longer asks for a VNC username.
 
 **In-session file transfer for RDP and VNC**
-- Upload, download, and browse files during an RDP session with the **📁 Files** button in the toolbar — no drive mapping or separate share needed.
+- Upload, download, and browse files during an RDP session with the **📁 Files** button in the toolbar - no drive mapping or separate share needed.
 - Browser VNC sessions to ProxyLink-deployed Windows PCs gain a full file manager (browse, upload, download, create folders, rename, delete).
 
 **Team roles and per-device access scoping**
@@ -42,39 +42,39 @@ description: Recent updates to ProxyLink.
 - A **Full access (connect-only)** toggle lets you grant a member the ability to connect to a device without exposing its configuration.
 
 **Proxy links now work with modern web apps**
-- Fixed a redirect loop that affected frameworks with mandatory trailing slashes (Django, DRF), and a case where proxied form/API POSTs could fail — every proxied web app benefits automatically.
+- Fixed a redirect loop that affected frameworks with mandatory trailing slashes (Django, DRF), and a case where proxied form/API POSTs could fail - every proxied web app benefits automatically.
 - New **"Preserve original domain"** toggle per link: keep appliance mode (default, for device web UIs like Synology/UniFi/pfSense) or switch to app mode for modern web apps whose API calls check the public domain.
 
 **Per-VLAN isolation for overlapping VLANs**
-- On gateways running the management agent (MikroTik and Linux), **every** VLAN — the primary LAN and each additional VLAN — now gets its own unique assigned range and is NETMAP-isolated. Two clients that share an *additional* VLAN subnet (not just the primary) stay fully distinct, with no renumbering on either site.
+- On gateways running the management agent (MikroTik and Linux), **every** VLAN - the primary LAN and each additional VLAN - now gets its own unique assigned range and is NETMAP-isolated. Two clients that share an *additional* VLAN subnet (not just the primary) stay fully distinct, with no renumbering on either site.
 
 ## May 2026
 
 **Early Access launch**
-- Free early access — full access to everything, no credit card, no limits
+- Free early access - full access to everything, no credit card, no limits
 - All tiers unlocked during early access period
 
 **New features**
-- VNC file manager — browse, upload, and download files via browser VNC terminal
-- Network automations — SSH triggers on device events, schedules, and webhooks
+- VNC file manager - browse, upload, and download files via browser VNC terminal
+- Network automations - SSH triggers on device events, schedules, and webhooks
 - NOC dashboard for MSP operations centres with real-time status across all client sites
 - Session recording for RDP and VNC (in addition to SSH)
 - Wake-on-LAN through WireGuard tunnel
 - Asset inventory with CSV export
-- NIS2 compliance portal — token-gated client-facing audit reports
-- ProxyLink push agent — push PowerShell scripts to Windows PCs remotely
+- NIS2 compliance portal - token-gated client-facing audit reports
+- ProxyLink push agent - push PowerShell scripts to Windows PCs remotely
 
 ## April 2026
 
-- Multi-VLAN support — additional subnets per tunnel, tested with MikroTik three-VLAN hotel setup
+- Multi-VLAN support - additional subnets per tunnel, tested with MikroTik three-VLAN hotel setup
 - Overlapping subnet handling via NETMAP for MSPs with clients sharing the same LAN subnet
 - Windows Server 2012 R2 support for one-liner deploy script
-- RDP screen sharing — view-only session sharing for client support
+- RDP screen sharing - view-only session sharing for client support
 - 2FA (TOTP) support
 - LAN auto-discovery with bulk proxy link creation
 - MikroTik auto-config via SSH
 - Teams and client groups for MSP workflows
-- Access links — share device access without requiring a ProxyLink account
+- Access links - share device access without requiring a ProxyLink account
 
 ## March 2026
 
