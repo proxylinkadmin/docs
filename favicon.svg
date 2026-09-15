@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <!-- ProxyLink mark "H / Far light".
+       Three gates receding into a network; the FAR one is lit, because in this
+       product light means reachability - the lit thing is the device you reached,
+       never our door. Dark ground, because the customer's network is dark and the
+       ground has to survive a light browser tab strip as well as a dark one. -->
+  <rect width="48" height="48" fill="#070A0F"/>
+  <g fill="none" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M14 15L20.5 24L14 33" stroke="#EEF2F7" stroke-width="2.2" opacity=".46"/>
+    <path d="M22 15L28.5 24L22 33" stroke="#EEF2F7" stroke-width="2.3" opacity=".7"/>
+    <path d="M30 18L35.5 24L30 30" stroke="#F0A93B" stroke-width="3"/>
+  </g>
+</svg>

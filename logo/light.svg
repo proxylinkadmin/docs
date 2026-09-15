@@ -1,15 +1,10 @@
 <svg width="160" height="36" viewBox="0 0 160 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="bg2" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#1E3A8A"/>
-      <stop offset="100%" stop-color="#0F172A"/>
-    </linearGradient>
-    <clipPath id="lH2"><rect x="0" y="0" width="18" height="36"/></clipPath>
-    <clipPath id="rH2"><rect x="18" y="0" width="18" height="36"/></clipPath>
-  </defs>
-  <rect width="36" height="36" rx="8" fill="url(#bg2)"/>
-  <ellipse cx="13.5" cy="18" rx="8.25" ry="6" stroke="#60A5FA" stroke-width="2.5" fill="none" clip-path="url(#lH2)"/>
-  <ellipse cx="22.5" cy="18" rx="8.25" ry="6" stroke="#93C5FD" stroke-width="2.5" fill="none"/>
-  <ellipse cx="13.5" cy="18" rx="8.25" ry="6" stroke="#60A5FA" stroke-width="2.5" fill="none" clip-path="url(#rH2)"/>
-  <text x="44" y="25" font-family="Inter, ui-sans-serif, sans-serif" font-size="17" font-weight="600" fill="#0f172a">ProxyLink</text>
+  <!-- Light-background variant: the unlit gates take ink instead of light, the
+       lit gate keeps the sodium amber so the mark means the same thing. -->
+  <g fill="none" stroke-linecap="square" transform="translate(2 6) scale(1)">
+    <path d="M1.5 1.5L9.5 12L1.5 22.5" stroke="#0F141C" stroke-width="2.7" opacity=".32"/>
+    <path d="M11 1.5L19 12L11 22.5" stroke="#0F141C" stroke-width="2.8" opacity=".62"/>
+    <path d="M21.5 4.5L28 12L21.5 19.5" stroke="#F0A93B" stroke-width="3.4"/>
+  </g>
+  <text x="44" y="25" font-family="Inter, ui-sans-serif, sans-serif" font-size="17" font-weight="600" fill="#0F141C">ProxyLink</text>
 </svg>
