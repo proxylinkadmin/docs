@@ -25,12 +25,18 @@ tcp.proxylink.dev:17050
 
 ## UDP tunnels (VoIP / SIP)
 
-UDP links are used for VoIP - SIP registration, RTP media streams. UDP tunnel links pass SIP and RTP traffic transparently.
+A UDP link is a transparent port forward. ProxyLink passes the packets through to your device and does not inspect, rewrite or terminate them, so SIP and RTP cross it unchanged.
+
+**ProxyLink does not run a SIP server.** There is no registrar, no proxy and no SIP ALG. Phones register to **your** PBX; ProxyLink only carries the traffic to it.
 
 **Example - PBX behind a router tunnel:**
-- SIP port: `192.168.40.10:5060` → exposed as UDP on ProxyLink
-- Phones register to ProxyLink's SIP endpoint
-- Calls work without a static IP on the PBX side
+- SIP port `192.168.40.10:5060` is exposed as a UDP link on `tcp.proxylink.dev`
+- Phones point at that host and port, and register against your PBX through it
+- The PBX needs no static IP and no inbound ports open
+
+<Note>
+Because nothing rewrites the packets, SIP carries your PBX's own addresses inside its messages. A PBX that advertises a private LAN address will still advertise it through the link, so set its external address (or NAT settings) to the ProxyLink host and port you were given, exactly as you would behind any other NAT.
+</Note>
 
 ## SSL termination on HTTPS ports
 
