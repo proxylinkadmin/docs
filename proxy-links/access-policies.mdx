@@ -7,11 +7,17 @@ Every proxy link has an access policy that controls who can reach it.
 
 ## Policy types
 
+### ProxyLink sign-in
+The link opens only for someone signed in to ProxyLink who is entitled to that device, from
+their dashboard. This is the default for new web links, and the right choice for almost all of
+them.
+
 ### Public
 Anyone with the URL can access the link. Suitable for services you want to share openly.
 
 ### VPN-only
-Only clients connected to the ProxyLink VPN (authenticated users) can access the link. The proxy rejects all other requests.
+Only a client connected to the ProxyLink VPN can access the link, and only one belonging to the
+same account or team as the link. The proxy rejects all other requests.
 
 ### IP allowlist
 Only requests from the exact IP addresses you list are allowed (one IP per entry - CIDR ranges are not currently supported).
@@ -26,8 +32,19 @@ A password prompt appears before the proxied service is accessible.
 
 ## Default policy
 
-New proxy links default to **Public**. Change the policy from the link's edit page or directly from the proxy link list.
+New web links (HTTP/HTTPS) default to **ProxyLink sign-in** - they are not reachable by anyone
+who is not signed in and entitled to the device. Change the policy from the link's edit page or
+directly from the proxy link list.
 
-## VPN-only links
+TCP and UDP links are different: they never pass through a sign-in page, so they offer
+**VPN-only**, **IP allowlist** and **Public** only, and default to VPN-only.
 
-VPN-only links check that the requesting IP belongs to a valid ProxyLink session. This effectively requires the user to be logged into ProxyLink to access the service - no password or IP restriction needed.
+## What VPN-only actually checks
+
+VPN-only checks the **source IP**: the request must arrive from inside the ProxyLink WireGuard
+range, from a device or member peer belonging to the same account or team as the link. It does
+not consult a browser session, so being signed in to ProxyLink makes no difference to it either
+way - and a peer of a different tenant is refused even though it is on the VPN.
+
+If what you want is "only someone signed in to ProxyLink", that is the **ProxyLink sign-in**
+policy above, not this one.

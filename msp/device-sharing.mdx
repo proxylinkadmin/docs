@@ -74,7 +74,7 @@ A share can carry an **expiry date**, which is the right default for contractor 
 Either side can end it at any time. You revoke; they can hand it back.
 
 <Warning>
-Revoking or expiring a share **disconnects sessions that are already open**. It does not merely block the next connection. If someone is in an RDP session on a shared device when you revoke, that session ends.
+Revoking or expiring a share **disconnects sessions that are already open**. It does not merely block the next connection: if someone is in an RDP session on a shared device when you revoke, that session is terminated. On the rare occasion a session cannot be closed immediately, the confirmation says so explicitly rather than reporting success - so treat the message on screen as the answer, not the click.
 </Warning>
 
 Every connection is re-checked against the current state of the share at the moment it is made, so access that has been withdrawn cannot be used with a link or token obtained earlier.
