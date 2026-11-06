@@ -27,8 +27,9 @@ The link works for SSH, RDP, VNC, and HTTP/HTTPS proxy links - any type of proxy
 ## Security
 
 - **Single-device scope** - the recipient can only access the specific device the link was created for. They cannot navigate to other devices or see anything else in your ProxyLink account.
-- **Expiry** - set an expiry date for time-limited access (e.g. for a contractor working on-site for a week). After expiry, the link returns a 404.
-- **Revoke at any time** - delete the access link from the proxy link detail page to immediately cut off access.
+- **Expiry** - set an expiry date for time-limited access (e.g. for a contractor working on-site for a week). After expiry the link stops working, and any session still open through it is disconnected within a minute.
+- **Revoke at any time** - delete the access link from the proxy link detail page. The URL stops working immediately and sessions already open through that link are disconnected. If one of them cannot be closed straight away you are told so on screen, and it is retried every minute until it is.
+- **Pausing the device link also ends the share** - a paused proxy link is not connectable by anyone, the share page stops offering it, and sessions already open on it are disconnected.
 - **Audit log** - every session initiated via an access link is logged in the audit log with the access link identifier, timestamp, and source IP.
 
 ## Use cases
