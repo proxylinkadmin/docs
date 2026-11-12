@@ -1,0 +1,53 @@
+---
+title: Engineer VPN
+description: One WireGuard peer per engineer device that reaches every client site their role allows, and is revoked in one click.
+---
+
+You may never need this. Browser RDP, VNC and SSH work with nothing installed on the engineer's machine, and they are the sessions ProxyLink records and logs for your audit trail. The Engineer VPN is for the moments a browser tab is not enough: your own Winbox, SQL client, scanner or SSH client, pointed straight at a device.
+
+It is a team feature, part of the MSP tier.
+
+## Issue a peer
+
+1. Open **VPN** in the top menu.
+2. Choose the team member, give the device a label (for example "Maria laptop") and, if you want, an expiry in days (1 to 365).
+3. Download or copy the configuration and import it into the WireGuard app on that device.
+
+- Team owners and managers can issue a peer to any member of the team. Any other member can issue one only for themselves.
+- Issue one peer per device: a laptop and a phone are two peers you can revoke separately.
+- The configuration is shown **once**. We generate the key pair when you issue the peer and keep only the public key and the preshared key, so we cannot show it to you again. If it is lost, revoke the peer and issue a new one.
+
+## What a peer reaches
+
+The peer reaches what the person's role allows, worked out live from the team's roles and assignments:
+
+| Role | Reaches |
+|---|---|
+| Owner, manager | Every client site of the team |
+| Engineer | The client groups assigned to them |
+| Employee | Only the devices assigned to them |
+
+- Change someone's role or assignments and their peer's reach follows. When reach shrinks, connections that are already open to the sites they lost are closed too.
+- A peer authorised for a client's gateway reaches every address on that site's LAN and VLANs, whether or not you have added it to ProxyLink as a service. The unit you hand out is a site.
+- A peer that someone issued for themselves reaches what their role allows in **every** team they belong to. A peer that an owner or manager issued for someone else stays limited to that one team, because its configuration passed through the issuer's browser.
+
+## What a peer cannot do
+
+- **Devices cannot call back.** Return traffic is allowed only on connections the engineer opened. A client's device cannot start a connection to the engineer's laptop.
+- **Another team's devices are never reachable**, and peers of different accounts cannot see each other. Traffic between them is dropped at the server.
+- **It is a split tunnel.** Only ProxyLink's own address ranges go through it. The engineer's normal internet traffic does not pass through ProxyLink.
+
+## Names instead of addresses
+
+Give a service a **VPN name** on its edit page and it resolves as `name.internal` while the tunnel is up, answered by ProxyLink's resolver and by nothing else on the internet. Two clients on the same `192.168.1.0/24` get different addresses here, so you can be connected to both at once.
+
+While the tunnel is up, the device uses ProxyLink's resolver for all name lookups: ProxyLink names are answered directly and everything else is forwarded.
+
+## Revoke
+
+Owners and managers can revoke any peer from the **VPN** page; a member can revoke their own. Revoking removes the peer from the server and ends its reach to every client site at once. A revoked peer's address is never given to anyone else.
+
+## Worth knowing
+
+- A VPN session is your own tooling talking to a device. ProxyLink can show that the tunnel was up, not what was done through it. Use browser sessions when you need recordings and a session log.
+- A proxy link with the **VPN-only** policy accepts any engineer or device of the same team on the VPN, whichever client site it belongs to. See [Access policies](/proxy-links/access-policies).
