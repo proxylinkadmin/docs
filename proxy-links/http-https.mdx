@@ -10,7 +10,7 @@ HTTP and HTTPS proxy links create a publicly accessible URL that forwards traffi
 1. Go to your device on the **Devices** page → **+ Add service**
 2. Select **HTTP Proxy** or **HTTPS Proxy**
 3. Enter the target server IP and port
-4. Set an access policy (public, VPN-only, IP allowlist, or password)
+4. Set an access policy (ProxyLink sign-in by default, or public, VPN-only, IP allowlist, or password)
 5. Save
 
 The link is immediately active at `https://abc123.proxy.proxylink.dev`.
@@ -27,6 +27,37 @@ TCP links on ports 443, 8443, and 5001 also get SSL termination with a valid Let
 
 ProxyLink preserves upstream cookies unchanged, including multi-cookie headers. This ensures applications like Matrix PBX and other session-heavy web UIs work correctly through the proxy.
 
+## WebSockets
+
+Web interfaces that update live (dashboards, management consoles, camera viewers) work through HTTP and HTTPS links with nothing to configure. A WebSocket connection is checked against the same access policy as every other request, and it is re-checked while it is open, so it is closed within about a minute if access is withdrawn (the link is paused, or your access to the device ends).
+
 ## Request logging
 
-All requests through HTTP/HTTPS proxy links are logged with timestamp, source IP, method, path, and response code. Access the logs from the proxy link detail page.
+Each request through an HTTP/HTTPS proxy link is logged with its timestamp, source IP, method, path, query string, response code and response time, plus a fixed set of ordinary browser headers (for example `User-Agent`, `Accept`, `Content-Type`, `Referer`). Open the log from the proxy link's detail page.
+
+What the log does **not** keep:
+
+- **Request bodies.** What someone types into a form on your device, including a sign-in, is forwarded to the device and not stored.
+- **Credentials in headers.** `Authorization`, `Cookie` and vendor token headers are never stored. Only the fixed list of ordinary headers is.
+- **Credentials in the address.** A query or path parameter whose name reads like a password, token, key or session id is stored without its value.
+
+Entries are deleted automatically after 30 days.
+
+<Note>
+The filter works on names. A secret that a device places in the address under a name that says nothing about it, or as a plain path segment, cannot be recognised and is stored as part of the path. If a device of yours does that, clear the log after use or keep the link on a private access policy.
+</Note>
+
+### Debug capture
+
+When you are debugging a webhook or an API call you sometimes need the whole request. **Debug capture** is a per-link switch on the link's edit page that keeps the request body (up to 64 KB), the full query string and every header except sign-in ones (`Authorization`, `Cookie` and known token headers are still never stored).
+
+- It is **off by default**.
+- On a personal link only the owner can switch it; on a team link only the team's owner and managers.
+- While it is on, anything a visitor submits through the link is stored for 30 days, a device password included. Turn it off when you are done.
+- Turning it on or off is written to the audit log with the name of the person who did it.
+- A sign-in to ProxyLink's own password page for a link is never stored, capture or not.
+- When a link changes hands, capture ends and what it kept is removed first: moving the link or its device to another team or to personal, deleting the team, or deleting the account of the person who created it. The new owner can switch it on again. If that clean-up cannot finish, the move or deletion does not go ahead.
+
+### Who can read and clear a log
+
+The request log of a personal link is visible to its owner. On a team link it is visible to the team's owner and managers. The same people can delete it at any time with **Clear log** on the link's page. Clearing cannot be undone and is recorded in the audit log.

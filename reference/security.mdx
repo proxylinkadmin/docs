@@ -5,7 +5,18 @@ description: How ProxyLink secures your infrastructure.
 
 ## WireGuard peer isolation
 
-Each user's tunnels are isolated from every other user's tunnels using Linux ipsets and iptables. A DROP rule at the WireGuard interface level blocks all cross-tenant traffic. Even if two users share the same VPN IP range, they cannot reach each other's devices.
+Devices on the ProxyLink VPN cannot reach each other unless they belong together. A DROP rule on the WireGuard interface blocks device-to-device traffic, and Linux ipsets allow only these pairs:
+
+- **Team devices, per client site.** A device reaches only the other devices of its own client site (client group). Two client sites of the same MSP cannot reach each other.
+- **Shared groups.** A device in a group marked as shared (a file server used by every site, for example) can be reached from every client site of that team. The sites still cannot reach each other through it.
+- **A team device in no client group** reaches no other device.
+- **Personal devices** (not in a team) reach only the other personal devices of the same account.
+
+Team members connected to the VPN reach what their role allows: owners and managers every client site of the team, an engineer only the client sites assigned to them.
+
+<Note>
+This is about devices reaching devices. A proxy link with the **VPN-only** policy is a different door: it accepts a connection from any device or engineer of the **same team** that is connected to the VPN, whichever client site that device belongs to. If a service must be reachable from one client site only, do not rely on VPN-only for that; use an IP allowlist or ProxyLink sign-in instead.
+</Note>
 
 ## No inbound ports
 
@@ -25,9 +36,19 @@ ProxyLink validates the target IP of every proxy link against the tunnel's decla
 - Login: 10/minute
 - RDP join: 10/minute per IP
 
-## Cloudflare WAF
+## Cloudflare
 
-All traffic to `app.proxylink.dev` passes through Cloudflare with Full Strict SSL, HSTS, and WAF rules active.
+The dashboard (`app.proxylink.dev`), browser sessions (SSH, RDP and VNC in the browser) and HTTP/HTTPS proxy links pass through Cloudflare with Full Strict SSL, HSTS and WAF rules active. Cloudflare terminates TLS and forwards to our server over a second encrypted connection. WireGuard tunnels and TCP/UDP links do not pass through Cloudflare.
+
+## What ProxyLink can see
+
+ProxyLink is **not end-to-end encrypted**, and it is better to say so plainly:
+
+- An HTTP/HTTPS proxy link is a reverse proxy. The request is decrypted at Cloudflare, again at our server, and forwarded to your device through the WireGuard tunnel. Both see the request in transit.
+- Browser SSH, RDP and VNC sessions are relayed by our server, which holds the connection to your device.
+- A WireGuard tunnel is encrypted between your device and our server. Traffic you send through a TCP/UDP link or the VPN is forwarded by our server without being inspected or stored; if the protocol inside is itself encrypted (SSH, HTTPS, RDP with TLS), we cannot read it.
+
+What we **store** from a proxied web request is deliberately small: see [Request logging](/proxy-links/http-https#request-logging). Request bodies are not stored unless you switch on Debug capture for that link, and sign-in headers are never stored.
 
 ## EU infrastructure
 

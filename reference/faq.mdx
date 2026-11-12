@@ -19,6 +19,14 @@ title: Frequently Asked Questions
     Hetzner Germany (Falkenstein). EU infrastructure, EU data protection law applies. Session relay and storage run entirely on our own server - there is no third-party remote-access relay network. Web traffic (dashboard, browser sessions, HTTP proxy links) is fronted by Cloudflare's edge for TLS and WAF; WireGuard tunnels and TCP links connect directly to the EU server.
   </Accordion>
 
+  <Accordion title="Does ProxyLink store what I type into my devices?">
+    No. The request log of an HTTP/HTTPS proxy link keeps the method, path, query string (with credential-like values removed), status, timing and source IP address of each request and a fixed set of ordinary browser headers. Request bodies (a sign-in form, for example), cookies and authorization headers are not stored, and address parameters named like a password, token or session id are stored without their value. The exception is **Debug capture**, a per-link switch that is off by default and that only the link's owner (or a team's owner and managers) can turn on. See [Request logging](/proxy-links/http-https#request-logging).
+  </Accordion>
+
+  <Accordion title="Is ProxyLink end-to-end encrypted?">
+    No. An HTTP/HTTPS proxy link is a reverse proxy: the request is decrypted at Cloudflare's edge and at our server before it is forwarded to your device through the WireGuard tunnel. Browser SSH, RDP and VNC sessions are relayed by our server. Traffic through a TCP/UDP link or the VPN is forwarded without being inspected, and stays unreadable to us when the protocol inside is itself encrypted. See [Security](/reference/security#what-proxylink-can-see).
+  </Accordion>
+
   <Accordion title="What protocol does ProxyLink use?">
     WireGuard for the VPN tunnel. WireGuard is open-source, audited, and built into the Linux kernel. It is faster and more secure than OpenVPN or IPsec.
   </Accordion>

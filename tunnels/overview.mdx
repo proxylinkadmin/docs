@@ -33,7 +33,7 @@ Each tunnel gets a unique IP in the `10.100.0.0/16` range (up to 65,534 peers). 
 
 ## Peer isolation
 
-Each user's tunnels are isolated from other users' tunnels at the iptables level using ipsets. Cross-tenant traffic is impossible - even if two users share the same VPN IP range, they cannot reach each other's devices.
+Devices on the VPN cannot reach each other unless they belong together: a team device reaches only the devices of its own client site, a device in a shared group is reachable from every site of the team, a team device in no group reaches none, and a personal device reaches only the same account's personal devices. Proxy links with the VPN-only policy follow a wider rule (any VPN device of the same team). Details in [Security](/reference/security#wireguard-peer-isolation).
 
 ## Adding VLANs
 

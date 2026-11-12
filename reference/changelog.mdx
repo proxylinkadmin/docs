@@ -3,6 +3,25 @@ title: Changelog
 description: Recent updates to ProxyLink.
 ---
 
+## November 2026
+
+**Client sites cannot reach each other over the VPN**
+- Devices on the ProxyLink VPN are now isolated per client site, not per team. A device reaches only the devices of its own client group; a device in a group marked as shared is reachable from every site of the team; a team device in no group reaches none. Before, every device of a team could reach every other device of the same team. See [Security](/reference/security#wireguard-peer-isolation).
+
+**WebSockets through web links**
+- Web interfaces that update live (dashboards, management consoles, camera viewers) now work through HTTP and HTTPS links with nothing to configure. See [WebSockets](/proxy-links/http-https#websockets).
+
+**Closing access closes open sessions**
+- Pausing a link, or deleting an access link or letting it expire, now also ends the browser sessions already open through it, not only the next connection.
+
+**The request log no longer keeps what is typed into a device**
+- Request bodies, sign-in headers and credential-like values in the address are no longer stored. The previous log kept request bodies for 30 days, which could include a device's password typed into its own sign-in page; those that look like a sign-in have been removed.
+- New per-link **Debug capture** for when you need the whole request, off by default, switched by the link's owner or a team's owner and managers, and recorded in the audit log.
+- The owner of a link (on a team, its owner and managers) can clear its log. The Replay button, which did not work, has been removed. See [Request logging](/proxy-links/http-https#request-logging).
+
+**Gateways belong to the team's owner and managers**
+- On a team, pushing commands to a gateway, taking a configuration backup of it, uninstalling its agent, viewing its config history, and creating a gateway in the team or moving one into it are now limited to the team's owner and managers. Engineers keep connecting to the devices behind it as before.
+
 ## August 2026
 
 **Share devices with another company**

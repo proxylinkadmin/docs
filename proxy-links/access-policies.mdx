@@ -46,5 +46,9 @@ range, from a device or member peer belonging to the same account or team as the
 not consult a browser session, so being signed in to ProxyLink makes no difference to it either
 way - and a peer of a different tenant is refused even though it is on the VPN.
 
+The check is per team, not per client site: a device at any client site of the team, or any
+engineer of the team on the VPN, is accepted. If a service must be reachable from one client site
+only, use an IP allowlist instead.
+
 If what you want is "only someone signed in to ProxyLink", that is the **ProxyLink sign-in**
 policy above, not this one.
