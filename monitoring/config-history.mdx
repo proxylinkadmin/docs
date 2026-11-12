@@ -1,0 +1,107 @@
+---
+title: Config History
+description: Scheduled snapshots of a router's or gateway's configuration, kept as versions you can compare and download.
+---
+
+Config history connects to a device over SSH through your tunnel on a schedule, runs one export command, and keeps the output as a version. A new version is stored only when the configuration changed, so the list of versions is the list of changes. You can view a version, compare two, and download one.
+
+<Note>
+This is a change record, not a restorable backup. Passwords, keys and other secrets are replaced before anything is stored, so a downloaded version cannot be imported back into a device without re-entering them. There is no restore button.
+</Note>
+
+## Supported devices
+
+| Device type | Export command used by default |
+|-------------|--------------------------------|
+| MikroTik RouterOS | `/export hide-sensitive` |
+| Cisco IOS / IOS-XE | `show running-config` |
+| pfSense / OPNsense | `cat /conf/config.xml` |
+| OpenWrt | `uci export` |
+| Linux gateway | Reads the WireGuard, interfaces, netplan, nftables and iptables rule files |
+
+You can replace the default with your own single-line command (tick **Custom** on the form). The output is still treated as the device type you selected.
+
+## Turn it on
+
+1. On the **Devices** page, open a gateway, or an SSH service (port 22) on a device behind a tunnel, and choose **History**
+2. Pick the device type. The form shows what the account on the device needs before the first run
+3. Enter the SSH username, port, and a password or a private key. Cisco devices can also take an enable password
+4. Choose **Every night** or **Once a week**, then **Enable config history**
+5. Press **Run now** to take the first snapshot. Otherwise the first one is taken at the next scheduled run
+
+All jobs you can see are listed under **More** → **Config history**. A device has one job.
+
+To stop taking snapshots but keep the stored versions, open the job, choose **Edit** and switch it to **Paused**. To remove everything, see [Deleting the data](#deleting-the-data).
+
+## When it runs
+
+- **Every night:** at 03:00 UTC plus a fixed offset per device of up to 59 minutes, so your devices are not all contacted in the same minute.
+- **Once a week:** at the same time of day, on a weekday that is fixed per device.
+- **Run now:** at most once every 5 minutes per device.
+
+The first successful login pins the device's SSH host key. If the device later presents a different key, the capture is refused and nothing is sent to it until someone with edit rights presses **Clear pin**. After two login refusals in a row the job pauses itself, so a stale password is not retried against the device every night. Fix the credentials under **Edit** and enable it again.
+
+## Who can see and change it
+
+| Action | Who |
+|--------|-----|
+| View, compare and download versions of a device | Owner and managers. An engineer, for devices in client groups assigned to them. An employee, for devices assigned to them |
+| Turn on config history for a device | The same people |
+| Edit, pause, **Run now**, **Clear pin** | Owner, managers, and the person who created the job while they still have access to the device |
+| Purge | Owner and managers |
+
+- **Full access is not enough to read.** An engineer with Full access can connect to every device, but sees config history only for client groups assigned to them.
+- **A gateway's own configuration is for the owner and managers.** Nobody else can view, create, edit, run or purge config history of a gateway itself, and the **History** button is not shown to them. This is recognised when the job is on the gateway, or on a service that points at the gateway's VPN address. A service that reaches the router through its LAN address is not recognised as the gateway and follows the device rule above.
+- **A device outside a team** belongs to its owner, who can do all of the above.
+- **A deleted device:** the owner and managers can still read and purge what was stored. Nobody can run or edit it.
+
+Everyone else is refused. See [Teams & Roles](/msp/teams) for the roles.
+
+## What is stored
+
+- **The configuration text** after secret removal, compressed and encrypted in our database.
+- **Per version:** when it was captured, line count, size, how many values were replaced, a hash, and who pressed **Run now** if it was a manual run.
+- **The SSH login** you entered, stored encrypted. It is never shown again; the form only says whether one is stored.
+- **The pinned host key fingerprint**, the result of the last run, and the device's error message if it failed.
+
+A configuration can contain personal data such as user names, host names and DHCP reservations. These are kept as part of the text.
+
+Every view, comparison and download of a version is written to the audit log with the person and their IP address. So are creating, editing, running and purging a job, and clearing a host key pin.
+
+## What is removed before storing
+
+Each device type has its own rules for finding passwords, keys, hashes, pre-shared secrets and SNMP communities. Each value found is replaced with a marker like `<redacted:1a2b3c4d>`. The marker is derived from the value with a key that is unique to that device, so:
+
+- a secret that changes shows up as a changed line when you compare versions;
+- two fields with the same value in one configuration carry the same marker;
+- markers on two different devices cannot be compared with each other.
+
+After the replacement the text is checked again. If any line still looks like a secret (a PEM block, a password hash, a long hexadecimal or base64 run, credentials inside a URL, or a word such as `password`, `secret` or `key` followed by a value), **the whole export is refused and not stored**. The job page then lists the line numbers and the kind of match. The text itself is discarded.
+
+<Warning>
+Secret removal is best-effort. It works on known field names and shapes, and a secret stored under a name it does not recognise, in a shape it does not look for, will be kept. Make the device hide secrets itself where it can: on RouterOS, use an account in a group without the `sensitive` policy; on other devices use a read-only or least-privilege account. The command cannot make a device print less than its account may see.
+</Warning>
+
+An export is also refused when it looks incomplete, when it is less than half the size of the previous version, or when it is larger than 4 MB.
+
+## How long it is kept
+
+- Versions are kept for your team's device history retention period, **90 days or 1 year**, which the team owner sets on the team's page. For a device outside a team it is 90 days.
+- **The newest version of each device is always kept** while the device exists, whatever its age. A router that has not changed for a year still has its one version.
+- When a device is deleted, its stored SSH login is erased immediately and no new snapshots are taken. The versions stay until the newest one is older than the retention period, then all of them are removed.
+- Expired versions are removed once a day, at 04:10 UTC.
+
+## Limits and known gaps
+
+- **No notifications.** A new version, a failed run or a job that paused itself does not send an alert. Check the **Config history** page; each job shows the result and time of its last run.
+- **No restore**, and no way to store an unredacted copy.
+- **Comparing in the browser** works up to 50,000 lines across the two versions. Past that, or when the two differ too much, the page says so and you can download both.
+- The job page lists the 200 most recent versions.
+- A single version cannot be deleted. Purge removes all of them.
+- The custom command must be one line.
+
+## Deleting the data
+
+Open the job and use **Purge** at the bottom of the page: type `PURGE` and confirm. This deletes every stored version, the job and its SSH login. It cannot be undone. The purge is recorded in the audit log with the device name and the number of versions deleted.
+
+Only the owner and managers can purge. For a device outside a team, its owner can.

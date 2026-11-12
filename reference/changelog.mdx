@@ -5,6 +5,10 @@ description: Recent updates to ProxyLink.
 
 ## November 2026
 
+**Config history and Network changes have their own pages**
+- [Config history](/monitoring/config-history): scheduled snapshots of a router's or gateway's configuration, with secrets removed before storing, kept as versions you can compare.
+- [Network changes](/monitoring/network-changes): optional night scans of your clients' networks, off until the team owner turns them on, and a daily list of what changed.
+
 **Client sites cannot reach each other over the VPN**
 - Devices on the ProxyLink VPN are now isolated per client site, not per team. A device reaches only the devices of its own client group; a device in a group marked as shared is reachable from every site of the team; a team device in no group reaches none. Before, every device of a team could reach every other device of the same team. See [Security](/reference/security#wireguard-peer-isolation).
 

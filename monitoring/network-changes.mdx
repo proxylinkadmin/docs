@@ -1,0 +1,106 @@
+---
+title: Network Changes
+description: Night scans of your clients' networks, and a daily list of what changed on them.
+---
+
+With night scans on, ProxyLink scans the networks your gateways declare once a night, through the tunnel, and compares each night with the nights before. The **Network changes** page lists what changed: new devices, devices that are gone, ports that opened or closed, and addresses where a different device now answers.
+
+<Warning>
+Night scans are **off until the team's owner turns them on**. The gateways of an MSP serve its clients' networks. Before turning night scans on, the owner must confirm that those clients have authorised the MSP to scan their networks every night. Get that authorisation first.
+</Warning>
+
+## Who can see and change it
+
+| Action | Who |
+|--------|-----|
+| Open **Network changes** | Owner, managers, engineers |
+| Turn night scans on or off, exclude a gateway or a network | Owner only |
+| Add, test or remove notification destinations | Owner and managers |
+| Delete the device history | Owner only |
+| Set the retention period (on the team's page) | Owner only |
+
+- An engineer sees only the gateways in client groups assigned to them, or all of them with Full access.
+- Employees and other roles cannot open the page.
+- The page belongs to a team. Devices another account shared with your team are not shown on it.
+
+See [Teams & Roles](/msp/teams) for the roles.
+
+## Turn night scans on
+
+1. Go to **More** → **Network changes**
+2. As the team owner, choose **Turn on night scans** (during early access: **Request night scans**)
+3. Read the summary and tick the box confirming you are authorised by the clients whose networks these gateways serve
+4. Confirm
+
+During early access ProxyLink approves each request by hand. Nothing is scanned until it is approved, and the owner can withdraw the request. Night scans are part of the MSP plan.
+
+Turning night scans on also turns on **device history** for the team, so the LAN scans your team starts by hand are recorded as well.
+
+## Turn them off
+
+The owner chooses **Turn off** on the same page. If device history was off before night scans were turned on, it is turned off again. What was already recorded stays until its retention period ends or until you delete it.
+
+To keep one site out without turning everything off, the owner unticks a gateway, or a single network of a gateway, under **Networks scanned each night**.
+
+## When it runs
+
+Every night at 02:30 Athens time. That is **00:30 UTC** in winter and **23:30 UTC** (the evening before) in summer. Changes are worked out when the scans finish, and the summary is sent then.
+
+## What a scan does
+
+- It covers only the networks your gateways declare, minus the ones the owner excluded, and only through the tunnel.
+- It pings each address and tries TCP ports 22, 80, 443, 3389, 5900 and 8080.
+- From devices that answer it reads the greeting they send before login (SSH version string, HTTP server header and page title), and takes a fingerprint of the TLS certificate and of the SSH host key.
+- It does not log in to anything and changes nothing on any device. The connections, and the SSH key exchange, will appear in device logs.
+
+## What is stored and for how long
+
+For each device found: its LAN address, open ports, whether it answered only to ping, the name and vendor guessed from its greeting, the greeting text, and the SHA-256 fingerprints of its TLS certificate and SSH host key. The fingerprints are hashes, not keys. No page content and no credentials are collected, and nothing is masked: a host name or page title a device announces is stored as announced, and it can contain a person's name.
+
+Also stored: a record per network per night (scanned, gateway offline, not reached and so on) and the list of changes.
+
+Everything is kept for the team's device history retention period, **90 days or 1 year**, which the owner sets on the team's page. Expired records are deleted automatically once a day. Deleting a gateway deletes its records immediately.
+
+## What counts as a change
+
+For the first **14 scanned nights** of each network the page shows "Learning your networks" and reports nothing. On a first night every device would look new.
+
+| Change | When it is reported | Severity |
+|--------|---------------------|----------|
+| New device | An address answers that was not seen in the last 30 days, in night scans or in scans your team ran by hand | Info |
+| Device gone | An address that answered three nights in a row has not answered for the next three | Info |
+| Port opened | A port answers that was closed on the last two nights the address answered | Info, or **High** when it is RDP (3389) or VNC (5900) on a device proven to be the same one |
+| Port closed | A port has been closed for two nights | Info |
+| Different device | The SSH host key or TLS certificate at an address changed | Medium |
+
+The page shows the last 30 days, up to the most recent 1,000 changes, with filters for site, gateway, kind and severity.
+
+## Notifications
+
+One summary per night, and only on nights when something changed. It goes **only to the destinations your team sets up**, on the Network changes page:
+
+- **Slack** - an incoming webhook URL (`hooks.slack.com`)
+- **Microsoft Teams** - a Workflows webhook URL
+- **Webhook** - any `https` URL. Each request carries `X-ProxyLink-Timestamp` and `X-ProxyLink-Signature` (an HMAC-SHA256 of the timestamp and body). The signing secret is shown once, when you add the destination.
+- **Email** - to an owner or manager of the team with a verified email, chosen from a list. You cannot type an address.
+
+By default a summary contains counts and a link back to the page. Tick **Include addresses and device names** on a destination to add up to 10 lines of detail; those details then leave ProxyLink for that service. A team can have up to 10 destinations. **Send test** sends a sample message (5 tests per hour per team). Each destination shows whether its last delivery worked.
+
+## Limits and known gaps
+
+- **A device is followed by its address.** If DHCP gives a PC a new address, it can appear as one device gone and one new. Two devices are treated as the same or as different only when an SSH key or TLS certificate proves it; without one the page says it cannot tell.
+- **Only the six ports above** are checked.
+- **Devices that are off at night** are not seen. The learning period and the multi-night rules exist to keep them from being reported as gone, and they do not remove the effect entirely.
+- **Networks larger than a /22** (1,024 addresses) are not scanned.
+- **An offline gateway is skipped** for that night, and so is a network with no route through the tunnel. The page shows this per gateway.
+- **Not every network is reached every night.** There is a limit per team (60 networks a night by default) and a time limit for the whole night. Networks not reached show as "not reached tonight" and go first the next night.
+- A night whose result looked wrong for a network is ignored for that network, and no change is reported from it.
+- There are no instant alerts. Changes are reported once, after the night's scans.
+
+## Deleting the data
+
+The team owner uses **Delete device history now** at the bottom of the Network changes page: type `DELETE` and confirm. This removes every recorded scan, every change and the nightly records of the team. It cannot be undone. It does not turn night scans off and does not remove notification destinations.
+
+Turning night scans on or off, excluding a network, deleting the history and changing destinations are each written to the audit log.
+
+See also [LAN Discovery](/monitoring/lan-discovery) for scans you start by hand.

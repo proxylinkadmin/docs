@@ -93,7 +93,9 @@
         "monitoring/updown-monitoring",
         "monitoring/alerts",
         "monitoring/network-automations",
-        "monitoring/lan-discovery"
+        "monitoring/lan-discovery",
+        "monitoring/network-changes",
+        "monitoring/config-history"
       ]
     },
     {
