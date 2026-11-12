@@ -9,9 +9,10 @@ ProxyLink teams allow MSPs to give engineers access to specific client groups an
 
 | Role | Access |
 |------|--------|
-| **Owner** | Full admin access - manage team members, all clients, all devices |
-| **Engineer** | Assigned client groups only |
-| **Employee** | Assigned devices only |
+| **Owner** | Full admin access - manage team members, all clients, all devices. Only the owner can delete the team |
+| **Manager** | Full access: create, edit and delete devices and links, manage clients and team members |
+| **Engineer** | Connect to devices in assigned client groups, or to every device with **Full access** ticked. Cannot edit or delete. Cannot push commands to a gateway, back it up, uninstall its agent or view its config history |
+| **Employee** | Connect to individually assigned devices only |
 
 ## Inviting team members
 
@@ -21,10 +22,10 @@ ProxyLink teams allow MSPs to give engineers access to specific client groups an
 
 ## Assigning access
 
-- **Engineers** are assigned to client groups. They can see all devices within their assigned groups.
+- **Engineers** are assigned to client groups, or given **Full access** to every device. They can see all devices within their assigned groups.
 - **Employees** are assigned to specific devices. They can only access those devices.
 
-Neither role can see clients or devices outside their assignment.
+An engineer without Full access, and an employee, cannot see clients or devices outside their assignment. An engineer with **Full access** can connect to every device of the team, still without editing rights.
 
 ## Placing devices
 
