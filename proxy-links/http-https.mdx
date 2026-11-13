@@ -31,6 +31,17 @@ ProxyLink preserves upstream cookies unchanged, including multi-cookie headers. 
 
 Web interfaces that update live (dashboards, management consoles, camera viewers) work through HTTP and HTTPS links with nothing to configure. A WebSocket connection is checked against the same access policy as every other request, and it is re-checked while it is open, so it is closed within about a minute if access is withdrawn (the link is paused, or your access to the device ends).
 
+## File uploads and size limits
+
+Uploading a file through a web link works like on the device's own address: the request is passed to the device exactly as the browser sent it.
+
+- A single request can carry up to **50 MB**. Larger uploads are refused with `413`.
+- A request with a body over 1 MB has **95 seconds** to reach the device and be answered; other requests have 30 seconds.
+- A link accepts up to **4 large uploads at the same time**. A fifth is answered with `429` and a `Retry-After` header; most upload pages retry by themselves.
+- A response from the device can be up to 50 MB.
+
+Until November 2026 form uploads through web links did not work: the file did not reach the device.
+
 ## Request logging
 
 Each request through an HTTP/HTTPS proxy link is logged with its timestamp, source IP, method, path, query string, response code and response time, plus a fixed set of ordinary browser headers (for example `User-Agent`, `Accept`, `Content-Type`, `Referer`). Open the log from the proxy link's detail page.
@@ -54,6 +65,7 @@ When you are debugging a webhook or an API call you sometimes need the whole req
 - It is **off by default**.
 - On a personal link only the owner can switch it; on a team link only the team's owner and managers.
 - While it is on, anything a visitor submits through the link is stored for 30 days, a device password included. Turn it off when you are done.
+- A file sent as a form upload (multipart) is never stored, even while Debug capture is on.
 - Turning it on or off is written to the audit log with the name of the person who did it.
 - A sign-in to ProxyLink's own password page for a link is never stored, capture or not.
 - When a link changes hands, capture ends and what it kept is removed first: moving the link or its device to another team or to personal, deleting the team, or deleting the account of the person who created it. The new owner can switch it on again. If that clean-up cannot finish, the move or deletion does not go ahead.

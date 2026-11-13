@@ -5,6 +5,10 @@ description: Recent updates to ProxyLink.
 
 ## November 2026
 
+**File uploads through web links**
+- Uploading a file through an HTTP or HTTPS link now works. Until now a form upload reached the device without the file. Up to 50 MB per request; see [File uploads and size limits](/proxy-links/http-https#file-uploads-and-size-limits).
+- The upload bar of the browser file manager now shows what has actually been sent, instead of jumping to 99% at once.
+
 **VPN-only links are per client site**
 - A VPN-only link (TCP, UDP or web) now accepts devices of its own client site only, not every device of the team. Engineers of the team connected to the VPN still reach every VPN-only link. Until now a device at one client site could open a VPN-only link that leads into another client site of the same team. See [Access policies](/proxy-links/access-policies#what-vpn-only-actually-checks).
 
