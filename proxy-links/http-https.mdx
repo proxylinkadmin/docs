@@ -42,6 +42,12 @@ Uploading a file through a web link works like on the device's own address: the 
 
 Until November 2026 form uploads through web links did not work: the file did not reach the device.
 
+### Files larger than 50 MB
+
+A web link cannot carry them, and the limit cannot be raised per link. Web links pass through Cloudflare, which refuses any upload over 100 MB before it reaches ProxyLink, and ProxyLink holds a request in memory while it forwards it, which is why its own limit is 50 MB.
+
+Use a [TCP link](/proxy-links/tcp-udp) to the device's web port instead, with the [VPN-only](/proxy-links/access-policies#vpn-only) access policy. A TCP link does not pass through Cloudflare and has no size limit. Connect your VPN, open `https://tcp.proxylink.dev:<port>` and upload from the device's own page. For device ports 443, 8443 and 5001 the browser sees a valid certificate.
+
 ## Request logging
 
 Each request through an HTTP/HTTPS proxy link is logged with its timestamp, source IP, method, path, query string, response code and response time, plus a fixed set of ordinary browser headers (for example `User-Agent`, `Accept`, `Content-Type`, `Referer`). Open the log from the proxy link's detail page.
