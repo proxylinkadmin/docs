@@ -46,10 +46,11 @@ The first successful login pins the device's SSH host key. If the device later p
 | Action | Who |
 |--------|-----|
 | View, compare and download versions of a device | Owner and managers. An engineer, for devices in client groups assigned to them. An employee, for devices assigned to them |
-| Turn on config history for a device | The same people |
+| Turn on config history for a device | Owner and managers of the team the device belongs to |
 | Edit, pause, **Run now**, **Clear pin** | Owner, managers, and the person who created the job while they still have access to the device |
 | Purge | Owner and managers |
 
+- **Turning it on is a decision for the owner and managers.** It stores an SSH login for the device and starts a scheduled login to it. An engineer or employee does not see the **History** button on a device that has no job yet, and reads what an owner or manager set up.
 - **Full access is not enough to read.** An engineer with Full access can connect to every device, but sees config history only for client groups assigned to them.
 - **A gateway's own configuration is for the owner and managers.** Nobody else can view, create, edit, run or purge config history of a gateway itself, and the **History** button is not shown to them. This is recognised when the job is on the gateway, or on a service that points at the gateway's VPN address. A service that reaches the router through its LAN address is not recognised as the gateway and follows the device rule above.
 - **A device outside a team** belongs to its owner, who can do all of the above.
