@@ -5,6 +5,9 @@ description: Recent updates to ProxyLink.
 
 ## November 2026
 
+**VPN-only links are per client site**
+- A VPN-only link (TCP, UDP or web) now accepts devices of its own client site only, not every device of the team. Engineers of the team connected to the VPN still reach every VPN-only link. Until now a device at one client site could open a VPN-only link that leads into another client site of the same team. See [Access policies](/proxy-links/access-policies#what-vpn-only-actually-checks).
+
 **Config history and Network changes have their own pages**
 - [Config history](/monitoring/config-history): scheduled snapshots of a router's or gateway's configuration, with secrets removed before storing, kept as versions you can compare.
 - [Network changes](/monitoring/network-changes): optional night scans of your clients' networks, off until the team owner turns them on, and a daily list of what changed.

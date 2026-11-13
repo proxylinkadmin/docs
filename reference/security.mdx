@@ -15,7 +15,7 @@ Devices on the ProxyLink VPN cannot reach each other unless they belong together
 Team members connected to the VPN reach what their role allows: owners and managers every client site of the team, an engineer only the client sites assigned to them.
 
 <Note>
-This is about devices reaching devices. A proxy link with the **VPN-only** policy is a different door: it accepts a connection from any device or engineer of the **same team** that is connected to the VPN, whichever client site that device belongs to. If a service must be reachable from one client site only, do not rely on VPN-only for that; use an IP allowlist or ProxyLink sign-in instead.
+A proxy link with the **VPN-only** policy follows the same boundary. It accepts a device only when that device belongs to the same client site as the device the link leads to (a device in a shared group counts at every site of its team), and it accepts the team's engineers connected to the VPN. A device at another client site of the same team is refused.
 </Note>
 
 ## No inbound ports

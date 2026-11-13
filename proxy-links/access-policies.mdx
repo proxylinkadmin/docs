@@ -16,8 +16,9 @@ them.
 Anyone with the URL can access the link. Suitable for services you want to share openly.
 
 ### VPN-only
-Only a client connected to the ProxyLink VPN can access the link, and only one belonging to the
-same account or team as the link. The proxy rejects all other requests.
+Only a client connected to the ProxyLink VPN can access the link: a device of the same client
+site as the link's device, or an engineer of the link's team. For a personal account, any of
+your own devices. The proxy rejects all other requests.
 
 ### IP allowlist
 Only requests from the exact IP addresses you list are allowed (one IP per entry - CIDR ranges are not currently supported).
@@ -42,13 +43,21 @@ TCP and UDP links are different: they never pass through a sign-in page, so they
 ## What VPN-only actually checks
 
 VPN-only checks the **source IP**: the request must arrive from inside the ProxyLink WireGuard
-range, from a device or member peer belonging to the same account or team as the link. It does
-not consult a browser session, so being signed in to ProxyLink makes no difference to it either
-way - and a peer of a different tenant is refused even though it is on the VPN.
+range. It does not consult a browser session, so being signed in to ProxyLink makes no
+difference to it either way, and a peer of a different account or team is refused even though it
+is on the VPN.
 
-The check is per team, not per client site: a device at any client site of the team, or any
-engineer of the team on the VPN, is accepted. If a service must be reachable from one client site
-only, use an IP allowlist instead.
+On a team the check is per client site for devices:
+
+- **A device** is accepted when it is in the same client group as the device the link leads to.
+  A device in a group marked as shared is accepted at every client site of its team. A device in
+  no client group is accepted only on links that lead to itself.
+- **An engineer of the team connected to the VPN** is accepted on every VPN-only link of the team.
+- A link filed under a different team than its device accepts nobody until the two are back
+  together.
+
+A change takes effect when it is made: moving a device to another client group removes it from
+the old site's links and adds it to the new one's.
 
 If what you want is "only someone signed in to ProxyLink", that is the **ProxyLink sign-in**
 policy above, not this one.
