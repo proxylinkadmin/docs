@@ -15,7 +15,9 @@ Access links let you share access to a specific device with anyone - no ProxyLin
 2. Click **Share** → **Create Access Link**
 3. Optionally set:
    - **Expiry date** - the link stops working after this date
-   - **Stored credentials** - username/password pre-filled so the recipient connects automatically (RDP/SSH/HTTP). A **VNC** share needs nothing here: it authenticates with the device's own VNC password automatically, and the form does not ask for a VNC username.
+   - **Link password** - asked on our own page before the link shows anything. Send it by a different channel than the URL.
+   - **Allowed IPs** - addresses or ranges the link may be opened from. From anywhere else it answers as if it did not exist.
+   - **Device password and username** (stored credentials) - pre-filled so the recipient connects automatically (RDP/SSH/HTTP). A **VNC** share needs nothing here: it authenticates with the device's own VNC password automatically, and the form does not ask for a VNC username.
 4. Copy the generated URL and send it to the recipient
 
 ## How it works
@@ -31,6 +33,26 @@ The link works for SSH, RDP, VNC, and HTTP/HTTPS proxy links - any type of proxy
 - **RDP** - file transfer is not offered on shared links.
 
 A link gives file transfer to the same person it already gives a shell or the screen to. Expiry, revoking and pausing apply to it the same way.
+
+## Locking a link
+
+A link is a URL: by default whoever holds it gets in. Two optional locks change that, and you can use either or both.
+
+**Link password**
+- The recipient sees a page with one field. The device's name, its address and what the link opens are shown only after the right password.
+- It is not the device's password. The device password is the one stored so the recipient is not asked for it; the link password is the one they must type.
+- 6 to 72 characters, stored as a hash.
+- Wrong guesses are limited: 10 from one address in 5 minutes, and 30 for one link in 15 minutes from everywhere together. After that the link refuses every password, the right one too, until the time passes. Setting a new password clears the count.
+
+**Allowed IPs**
+- Up to 20 addresses or ranges, IPv4 or IPv6, for example `203.0.113.10, 198.51.100.0/24`.
+- Meant for an office or a vendor with a fixed address. Home and mobile connections change theirs, and that person would then be locked out.
+- If the office also has IPv6, add its range too: a recipient who arrives over IPv6 is checked by that address.
+- Empty means any address.
+
+**Changing a lock** - use **Access rule** next to the link. Saving a change disconnects anyone using the link at that moment, and a web page opened through it stops on its next request. The owner, managers and engineers of the team can change it; employees cannot.
+
+**What a lock does not cover** - a web link whose own access policy is *public* is reachable at its own address without the access link. To protect the page itself, change the [access policy](/proxy-links/access-policies) of the web link.
 
 ## Security
 
