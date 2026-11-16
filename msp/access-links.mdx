@@ -24,6 +24,14 @@ The recipient opens the URL in a browser. If stored credentials are configured, 
 
 The link works for SSH, RDP, VNC, and HTTP/HTTPS proxy links - any type of proxy link can be shared.
 
+## File transfer on a shared link
+
+- **SSH** - the share page shows a **Files** button beside **SSH Terminal**. It opens a file browser over SFTP: browse, upload, download, rename, delete and create folders. It signs in with the stored credentials if the link has them, otherwise the recipient enters an SSH username and password. They see the files that SSH user can see, nothing more. The device needs SFTP enabled, which is the default on most SSH servers.
+- **VNC** - the **Files** button in the VNC toolbar, on Windows PCs deployed with the ProxyLink one-liner.
+- **RDP** - file transfer is not offered on shared links.
+
+A link gives file transfer to the same person it already gives a shell or the screen to. Expiry, revoking and pausing apply to it the same way.
+
 ## Security
 
 - **Single-device scope** - the recipient can only access the specific device the link was created for. They cannot navigate to other devices or see anything else in your ProxyLink account.
