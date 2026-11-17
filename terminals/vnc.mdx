@@ -24,6 +24,39 @@ The VNC terminal includes a built-in file manager for **UltraVNC connections onl
 
 ProxyLink supports Apple Remote Desktop authentication (security type 30). When connecting to a Mac, the VNC dialog shows a username field in addition to the password.
 
+## A VNC server you set up yourself
+
+For a VNC server ProxyLink did not install (a Raspberry Pi, a Mac, an appliance) you can store its sign-in on the link, so the session opens without typing anything:
+
+1. Open the device on the **Devices** page and expand its VNC link.
+2. Under **VNC password**, fill in the password, and the username if the server asks for one.
+3. Click **Save**.
+
+The stored sign-in is used by the browser session and by every [access link](/msp/access-links) of that VNC link. Nothing is changed on the device. Only the team's owner and managers (or the owner of a personal link) can see, change or remove it, and every change is written to the audit log without the values.
+
+If nothing is stored, or the stored sign-in is refused, the VNC window offers **Sign in with a username or a different password**.
+
+This form is not shown for Windows PCs deployed with the ProxyLink one-liner. Their VNC password is set on the PC itself with **Set & push**.
+
+### Raspberry Pi OS (wayvnc)
+
+Current Raspberry Pi OS runs wayvnc, which by default offers only encrypted sign-in methods (VeNCrypt, RSA-AES) that the ProxyLink browser terminal does not support yet. To connect, wayvnc has to offer username and password sign-in instead. In `/etc/wayvnc/config`:
+
+```ini
+enable_auth=true
+enable_pam=false
+username=pi
+password=choose-a-vnc-only-password
+relax_encryption=true
+```
+
+Remove the `private_key_file` and `certificate_file` lines (keep `rsa_private_key_file` if it is there), then restart wayvnc (`sudo systemctl restart wayvnc`). Store the same username and password on the link as described above.
+
+Two things to know:
+
+- The username must be the user of the Pi's desktop session (usually `pi`). Raspberry Pi OS disconnects any other name.
+- With these settings the VNC connection itself is no longer TLS-encrypted on the Pi's side. Through ProxyLink it still travels only inside the WireGuard tunnel, but anything else on the Pi's own LAN that can reach port 5900 talks to it without TLS. Use a password that is used nowhere else, and keep the port closed to other networks.
+
 ## VNC security
 
 VNC ports are only accessible through the WireGuard tunnel - they are never exposed to the internet. Access is secured by the ProxyLink login, the WireGuard tunnel, and a per-device VNC password that the deploy sets automatically. No manual step is needed - VNC works in the browser as soon as the machine connects.
